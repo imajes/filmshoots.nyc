@@ -27,12 +27,14 @@ gem 'jquery-turbolinks'
 
 # UI HELPERS
 gem 'sass-rails', github: 'rails/sass-rails'
-gem 'bootstrap-sass'
-
 gem 'coffee-rails'
-gem 'jquery-rails'
 gem 'haml-rails'
-# gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
+gem 'jquery-rails'
+
+# UI INTEGRATIONS
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem "font-awesome-rails"
 
 # ASSET/UI
 gem 'therubyracer', require: false
