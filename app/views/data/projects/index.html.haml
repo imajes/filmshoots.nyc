@@ -1,14 +1,23 @@
 .row.mt
-  .col-lg-6.col-md-6.col-sm-12
+  .col-lg-12
     .showback
       %h4
         %i.fa.fa-angle-right
         title title
-      %p hello!
-  .col-lg-6.col-md-6.col-sm-12
-    .showback
-      %h4
-        %i.fa.fa-angle-right
-        title title
-      %p hello!
 
+      %table.table.table-bordered.table-striped.table-condensed
+        %thead
+          %tr
+            %th City ID
+            %th Category
+            %th Company Name
+            %th Title
+        %tbody
+          - @projects.each do |project|
+            %tr
+              %td.numeric= project.city_ref
+              %td= project.category
+              %td= project.company.name
+              %td= project.title
+
+      = paginate @projects
