@@ -1,0 +1,29 @@
+.row.mt
+  .col-lg-12
+    .showback
+      %h4
+        %i.fa.fa-angle-right
+        Companies Directory
+
+      %p
+        Filter by:
+        %ul.inline
+        - Category.all.each do |cat|
+          =link_to data_companies_path(category_id: cat.id) do
+            %li.btn.btn-primary= cat.name.titleize
+
+
+      %table.table.table-bordered.table-striped.table-condensed
+        %thead
+          %tr
+            %th Company Name
+            %th Categories
+            %th Projects
+        %tbody
+          - @companies.each do |company|
+            %tr
+              %td= link_to company.name, data_company_projects_path(company)
+              %td= company.categories.map(&:name).uniq.join(", ")
+              %td= company.projects.size
+
+      = paginate @companies

@@ -2,6 +2,11 @@ Rails.application.routes.draw do
 
   namespace :data do
     resources :projects
+
+    resources :companies do
+      resources :projects
+    end
+
   end
 
 

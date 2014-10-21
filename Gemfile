@@ -12,6 +12,9 @@ gem 'dotenv-rails'
 # DB/MODEL
 gem 'pg'
 
+# SEARCH
+gem 'searchkick'
+
 # PARSING
 gem 'parslet'
 

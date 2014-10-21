@@ -3,7 +3,14 @@
     .showback
       %h4
         %i.fa.fa-angle-right
-        title title
+        Projects Directory
+
+      %p
+        Filter by:
+        %ul.inline
+        - Category.all.each do |cat|
+          =link_to data_projects_path(category_id: cat.id) do
+            %li.btn.btn-primary= cat.name.titleize
 
       %table.table.table-bordered.table-striped.table-condensed
         %thead
@@ -16,7 +23,7 @@
           - @projects.each do |project|
             %tr
               %td.numeric= project.city_ref
-              %td= project.category
+              %td= project.category.name
               %td= project.company.name
               %td= project.title
 
