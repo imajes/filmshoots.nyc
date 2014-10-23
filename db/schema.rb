@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021190931) do
+ActiveRecord::Schema.define(version: 20141021194432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,27 @@ ActiveRecord::Schema.define(version: 20141021190931) do
   end
 
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree
+
+  create_table "permits", force: true do |t|
+    t.integer  "event_ref"
+    t.integer  "project_id"
+    t.string   "event_name"
+    t.string   "event_type"
+    t.datetime "event_start"
+    t.datetime "event_end"
+    t.datetime "entered_on"
+    t.text     "original_location"
+    t.string   "zip"
+    t.string   "boro"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "permits", ["event_end"], name: "index_permits_on_event_end", using: :btree
+  add_index "permits", ["event_start"], name: "index_permits_on_event_start", using: :btree
+  add_index "permits", ["event_type"], name: "index_permits_on_event_type", using: :btree
+  add_index "permits", ["project_id"], name: "index_permits_on_project_id", using: :btree
+  add_index "permits", ["zip"], name: "index_permits_on_zip", using: :btree
 
   create_table "projects", force: true do |t|
     t.integer  "city_ref"

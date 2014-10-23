@@ -17,6 +17,7 @@ gem 'searchkick'
 
 # PARSING
 gem 'parslet'
+gem 'geocoder'
 
 # QUEUE/CACHE
 gem 'sidekiq'
