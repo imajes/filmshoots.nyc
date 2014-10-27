@@ -42,4 +42,66 @@ namespace :import do
 
     puts "\nDone importing #{size} permit records..."
   end
+
+
+  desc "bleh"
+  task :test => :environment do
+
+    require Rails.root.join('lib/location_parser')
+
+
+    Permit.where("random() < 0.01").limit(10).each do |permit|
+      puts "----- #{permit.id} ------"
+      puts permit.original_location_as_paragraph
+      puts ""
+      run_parse(permit.original_location_as_paragraph)
+
+    end
+
+  end
+
+  desc "bleh"
+  task :para => :environment do
+
+    Permit.where("random() < 0.01").limit(10).each do |permit|
+      puts "----- #{permit.id} ------"
+      puts permit.original_location_as_paragraph
+      puts ""
+    end
+
+  end
+
+  desc "bleh"
+  task :explore => :environment do
+
+    require Rails.root.join('lib/location_parser')
+
+
+    Permit.where("random() < 0.01").limit(10).each do |permit|
+
+      loc = permit.original_location.gsub(/\s+/, ' ')
+      ap loc
+      ap loc.split(",").map(&:strip)
+
+    end
+
+  end
+
+  def run_parse(str)
+    begin
+      x = LocationParser.new.parse(str)
+      ap x
+    rescue Parslet::ParseFailed => failure
+      puts failure.cause.ascii_tree
+
+      # print "\n"
+      # 1.upto(str.size).each { |x| print "#{x} " }
+      #
+      # print "\n"
+      #
+      # str.split("").each_with_index {|c, idx| spacer = " " * idx.to_s.size; print "#{c}#{spacer}" }
+      print "\n\n"
+    end
+
+  end
 end

@@ -1,6 +1,7 @@
 class Permit < ActiveRecord::Base
 
   belongs_to :project
+  has_and_belongs_to_many :locations
 
   # sql/stat/grouping queries
 
@@ -32,6 +33,22 @@ class Permit < ActiveRecord::Base
     permit.assign_attributes(attrs)
     permit.save!
 
+  end
+
+  def original_location_as_paragraph
+    original_location.gsub(/\s+/, " ").split(",").map do |line|
+
+      line.strip!
+
+      if line =~ /\:/
+        line = "\n#{line}"
+      elsif line =~ /between/
+        line = "\t#{line}".gsub("&", "_and_")
+      else
+        line = line
+      end
+
+    end.join("\n").gsub(" and ", " & ").gsub(" between ", " <> ")
   end
 
 end

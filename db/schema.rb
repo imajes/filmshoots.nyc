@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021194432) do
+ActiveRecord::Schema.define(version: 20141023165516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,27 @@ ActiveRecord::Schema.define(version: 20141021194432) do
   end
 
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree
+
+  create_table "locations", force: true do |t|
+    t.string   "original"
+    t.string   "formatted"
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "locations", ["formatted"], name: "index_locations_on_formatted", using: :btree
+  add_index "locations", ["lat"], name: "index_locations_on_lat", using: :btree
+  add_index "locations", ["lng"], name: "index_locations_on_lng", using: :btree
+
+  create_table "locations_permits", force: true do |t|
+    t.integer "permit_id"
+    t.integer "location_id"
+  end
+
+  add_index "locations_permits", ["location_id"], name: "index_locations_permits_on_location_id", using: :btree
+  add_index "locations_permits", ["permit_id"], name: "index_locations_permits_on_permit_id", using: :btree
 
   create_table "permits", force: true do |t|
     t.integer  "event_ref"
