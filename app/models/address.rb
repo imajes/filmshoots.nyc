@@ -8,8 +8,6 @@ class Address < ActiveRecord::Base
 
   def self.process_parsed(list, permit)
 
-    debugger
-
     list.each do |addr|
 
       case addr.keys.first
