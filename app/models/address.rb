@@ -58,16 +58,18 @@ class Address < ActiveRecord::Base
   private
 
   def geocode_address
-    geocoded = Geocoder.search(original).first
+    geo_results = Geocoder.search(original)
 
-    if geocoded.any?
+    if geo_results.any?
+      geo = geo_results.first
+
       self.geocoded     = true
-      self.formatted    = geocoded.formatted_address
-      self.longitude    = geocoded.longitude
-      self.latitude     = geocoded.latitude
-      self.zipcode      = geocoded.postal_code
-      self.neighborhood = geocoded.neighborhood
-      self.data         = geocoded.data.to_json
+      self.formatted    = geo.formatted_address
+      self.longitude    = geo.longitude
+      self.latitude     = geo.latitude
+      self.zipcode      = geo.postal_code
+      self.neighborhood = geo.neighborhood
+      self.data         = geo.data.to_json
     end
   end
 
