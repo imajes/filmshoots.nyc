@@ -11,31 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027213412) do
+ActiveRecord::Schema.define(version: 20141028173300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "addresses", force: true do |t|
     t.string   "type"
-    t.string   "ancestry"
     t.string   "original"
     t.string   "formatted"
     t.string   "zipcode"
     t.string   "neighborhood"
-    t.text     "data"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
     t.float    "latitude"
     t.float    "longitude"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "geocoded",     default: false
   end
 
-  add_index "addresses", ["ancestry"], name: "index_addresses_on_ancestry", using: :btree
   add_index "addresses", ["formatted"], name: "index_addresses_on_formatted", using: :btree
   add_index "addresses", ["latitude"], name: "index_addresses_on_latitude", using: :btree
+  add_index "addresses", ["lft"], name: "index_addresses_on_lft", using: :btree
   add_index "addresses", ["longitude"], name: "index_addresses_on_longitude", using: :btree
   add_index "addresses", ["neighborhood"], name: "index_addresses_on_neighborhood", using: :btree
   add_index "addresses", ["original"], name: "index_addresses_on_original", using: :btree
+  add_index "addresses", ["parent_id"], name: "index_addresses_on_parent_id", using: :btree
+  add_index "addresses", ["rgt"], name: "index_addresses_on_rgt", using: :btree
   add_index "addresses", ["type"], name: "index_addresses_on_type", using: :btree
 
   create_table "addresses_permits", force: true do |t|

@@ -2,16 +2,20 @@ class CreateAddresses < ActiveRecord::Migration
   def change
     create_table :addresses do |t|
       t.string :type
-      t.string :ancestry
       t.string :original
       t.string :formatted
       t.string :zipcode
       t.string :neighborhood
-      t.text   :data
+
+      t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
+      t.integer :depth
 
       t.float :latitude
       t.float :longitude
 
+      t.text   :data
 
       t.timestamps
     end
@@ -19,7 +23,9 @@ class CreateAddresses < ActiveRecord::Migration
     add_index :addresses, :original
     add_index :addresses, :formatted
     add_index :addresses, :type
-    add_index :addresses, :ancestry
+    add_index :addresses, :parent_id
+    add_index :addresses, :lft
+    add_index :addresses, :rgt
     add_index :addresses, :latitude
     add_index :addresses, :longitude
     add_index :addresses, :neighborhood

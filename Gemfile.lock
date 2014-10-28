@@ -44,8 +44,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    ancestry (2.1.0)
-      activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
     asset_sync (1.1.0)
       activemodel
@@ -53,6 +51,8 @@ GEM
       unf
     autoprefixer-rails (3.1.2.20141016)
       execjs
+    awesome_nested_set (3.0.1)
+      activerecord (>= 4.0.0, < 5)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -361,9 +361,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ancestry
   asset_sync
   autoprefixer-rails
+  awesome_nested_set
   awesome_print!
   better_errors
   binding_of_caller

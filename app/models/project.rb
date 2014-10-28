@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
 
+  searchkick suggest: [:title]
+
   belongs_to :company
   belongs_to :category
 

@@ -17,6 +17,7 @@
           %tr
             %th City ID
             %th Category
+            %th Permits
             %th Company Name
             %th Title
         %tbody
@@ -24,7 +25,8 @@
             %tr
               %td.numeric= project.city_ref
               %td= project.category.name
+              %td= project.permits.count
               %td= project.company.name
-              %td= project.title
+              %td= link_to project.title, data_company_project_permits_path(company_id: project.company_id, project_id: project.id)
 
       = paginate @projects

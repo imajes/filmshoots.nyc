@@ -1,0 +1,33 @@
+.row.mt
+  .col-lg-12
+    .showback
+      %h4
+        %i.fa.fa-angle-right
+        == #{@permits.count} Permits for #{@project.title}
+
+      %table.table.table-bordered.table-striped.table-condensed
+        %thead
+          %tr
+            %th City ID
+            %th Type
+            %th Locations
+            %th 'Hood, Borough
+            %th Shoot Desc.
+            %th Started
+            %th Ended
+            %th Duration
+        %tbody
+          - @permits.each do |permit|
+            %tr
+              %td.numeric= permit.event_ref
+              %td= permit.event_type
+              %td== #{permit.locations.count} + #{permit.intersections.count}
+              %td== #{permit.locations.map(&:neighborhood).uniq.compact.join(", ")}, <strong>#{permit.boro}</strong>
+              %td= permit.event_name
+              %td= permit.event_start.in_time_zone("EST").strftime('%b %d, %Y at %H:%m %p')
+              %td= permit.event_end.in_time_zone("EST").strftime('%b %d, %Y at %H:%m %p')
+              %td= shoot_length(permit.event_start, permit.event_end)
+
+              -#%td= link_to permit.title, data_company_permit_permits_path(company_id: permit.company_id, permit_id: permit.id)
+
+      = paginate @permits

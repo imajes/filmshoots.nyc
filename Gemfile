@@ -11,7 +11,7 @@ gem 'dotenv-rails'
 
 # DB/MODEL
 gem 'pg'
-gem 'ancestry'
+gem 'awesome_nested_set'
 
 # SEARCH
 gem 'searchkick'

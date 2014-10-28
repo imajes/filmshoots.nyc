@@ -35,6 +35,14 @@ class Permit < ActiveRecord::Base
 
   end
 
+  def locations
+    addresses.where(type: "Location")
+  end
+
+  def intersections
+    addresses.where(type: "Intersection")
+  end
+
   def zips
     zip.split(",")
   end
@@ -56,7 +64,9 @@ class Permit < ActiveRecord::Base
     end.join("\n")
   end
 
-  def expand_addresses
+  def expand_addresses(force = nil)
+    return if addresses.any? && force.nil?
+
     parsed = LocationParser.new.parse(original_location_as_paragraph)
     trans  = LocationTransform.new
 
