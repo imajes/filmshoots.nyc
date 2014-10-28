@@ -1,5 +1,4 @@
-class Location < ActiveRecord::Base
+class Location < Address
 
-  has_and_belongs_to_many :permits
 
 end

@@ -1,0 +1,3 @@
+class Intersection < Address
+
+end

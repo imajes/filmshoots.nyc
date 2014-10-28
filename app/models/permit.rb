@@ -1,7 +1,7 @@
 class Permit < ActiveRecord::Base
 
   belongs_to :project
-  has_and_belongs_to_many :locations
+  has_and_belongs_to_many :addresses
 
   # sql/stat/grouping queries
 
@@ -35,6 +35,10 @@ class Permit < ActiveRecord::Base
 
   end
 
+  def zips
+    zip.split(",")
+  end
+
   def original_location_as_paragraph
     original_location.gsub(/\s+/, " ").split(",").map do |line|
 
@@ -44,11 +48,35 @@ class Permit < ActiveRecord::Base
         line = "\n#{line}"
       elsif line =~ /between/
         line = "\t#{line}".gsub("&", "_and_")
+        line = line.gsub("and", "&").gsub("between", "<>").gsub("_and_", 'and')
       else
         line = line
       end
 
-    end.join("\n").gsub(" and ", " & ").gsub(" between ", " <> ")
+    end.join("\n")
+  end
+
+  def expand_addresses
+    parsed = LocationParser.new.parse(original_location_as_paragraph)
+    trans  = LocationTransform.new
+
+    results = trans.apply(parsed, permit: self)
+
+    Address.process_parsed(results, self)
+  end
+
+  def google_intersection(street, cross)
+    street = clean_street(street)
+    cross = clean_street(cross)
+
+    "#{street} at #{cross}"
+  end
+
+  def clean_street(str)
+    addr_zip  = (zips.size == 1 ? "NY #{zips.first}" : "NY")
+    addr_boro = (boro == "NULL" ? "New York" : boro)
+
+    "#{str.to_s.strip}, #{addr_boro}, #{addr_zip}"
   end
 
 end

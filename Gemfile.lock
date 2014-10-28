@@ -44,6 +44,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
     asset_sync (1.1.0)
       activemodel
@@ -359,6 +361,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ancestry
   asset_sync
   autoprefixer-rails
   awesome_print!

@@ -47,14 +47,11 @@ namespace :import do
   desc "bleh"
   task :test => :environment do
 
-    require Rails.root.join('lib/location_parser')
-
-
-    Permit.where("random() < 0.01").limit(10).each do |permit|
+    Permit.where("random() < 0.01").limit(3).each do |permit|
       puts "----- #{permit.id} ------"
       puts permit.original_location_as_paragraph
       puts ""
-      run_parse(permit.original_location_as_paragraph)
+      run_parse(permit.original_location_as_paragraph, permit)
 
     end
 
@@ -74,23 +71,25 @@ namespace :import do
   desc "bleh"
   task :explore => :environment do
 
-    require Rails.root.join('lib/location_parser')
-
-
     Permit.where("random() < 0.01").limit(10).each do |permit|
 
-      loc = permit.original_location.gsub(/\s+/, ' ')
-      ap loc
-      ap loc.split(",").map(&:strip)
+      loc = permit.original_location
+      puts "----\n start: #{loc}\n"
+      x = LocationTransform.new.apply(loc)
+      puts "finish: #{x}\n----"
 
     end
 
   end
 
-  def run_parse(str)
+  def run_parse(str, permit)
     begin
       x = LocationParser.new.parse(str)
-      ap x
+      tr = LocationTransform.new
+
+      ap tr
+
+      ap tr.apply(x, permit: permit)
     rescue Parslet::ParseFailed => failure
       puts failure.cause.ascii_tree
 

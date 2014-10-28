@@ -11,6 +11,7 @@ gem 'dotenv-rails'
 
 # DB/MODEL
 gem 'pg'
+gem 'ancestry'
 
 # SEARCH
 gem 'searchkick'

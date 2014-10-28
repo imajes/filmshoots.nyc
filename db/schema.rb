@@ -11,10 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023165516) do
+ActiveRecord::Schema.define(version: 20141027213412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: true do |t|
+    t.string   "type"
+    t.string   "ancestry"
+    t.string   "original"
+    t.string   "formatted"
+    t.string   "zipcode"
+    t.string   "neighborhood"
+    t.text     "data"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "addresses", ["ancestry"], name: "index_addresses_on_ancestry", using: :btree
+  add_index "addresses", ["formatted"], name: "index_addresses_on_formatted", using: :btree
+  add_index "addresses", ["latitude"], name: "index_addresses_on_latitude", using: :btree
+  add_index "addresses", ["longitude"], name: "index_addresses_on_longitude", using: :btree
+  add_index "addresses", ["neighborhood"], name: "index_addresses_on_neighborhood", using: :btree
+  add_index "addresses", ["original"], name: "index_addresses_on_original", using: :btree
+  add_index "addresses", ["type"], name: "index_addresses_on_type", using: :btree
+
+  create_table "addresses_permits", force: true do |t|
+    t.integer "permit_id"
+    t.integer "address_id"
+  end
+
+  add_index "addresses_permits", ["address_id"], name: "index_addresses_permits_on_address_id", using: :btree
+  add_index "addresses_permits", ["permit_id"], name: "index_addresses_permits_on_permit_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -30,27 +60,6 @@ ActiveRecord::Schema.define(version: 20141023165516) do
   end
 
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree
-
-  create_table "locations", force: true do |t|
-    t.string   "original"
-    t.string   "formatted"
-    t.float    "lat"
-    t.float    "lng"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "locations", ["formatted"], name: "index_locations_on_formatted", using: :btree
-  add_index "locations", ["lat"], name: "index_locations_on_lat", using: :btree
-  add_index "locations", ["lng"], name: "index_locations_on_lng", using: :btree
-
-  create_table "locations_permits", force: true do |t|
-    t.integer "permit_id"
-    t.integer "location_id"
-  end
-
-  add_index "locations_permits", ["location_id"], name: "index_locations_permits_on_location_id", using: :btree
-  add_index "locations_permits", ["permit_id"], name: "index_locations_permits_on_permit_id", using: :btree
 
   create_table "permits", force: true do |t|
     t.integer  "event_ref"
