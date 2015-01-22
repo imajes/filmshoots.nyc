@@ -5,6 +5,11 @@
         %i.fa.fa-angle-right
         == #{@permits.count} Permits for #{@project.title}
 
+      #map-canvas
+
+.row.mt
+  .col-lg-12
+    .showback
       %table.table.table-bordered.table-striped.table-condensed
         %thead
           %tr
@@ -31,3 +36,18 @@
               -#%td= link_to permit.title, data_company_permit_permits_path(company_id: permit.company_id, permit_id: permit.id)
 
       = paginate @permits
+
+
+    - content_for :footer_js do
+
+      :javascript
+
+        function gmapInit() {
+          var mapOptions = {
+            center: { lat: 40.766, lng: -73.977},
+            zoom: 13
+          };
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', gmapInit);

@@ -20,4 +20,10 @@
 @import "dashgum/style-responsive";
 @import "dashgum/table-responsive";
 
+// gmap
 
+#map-canvas {
+  height: 800px;
+  margin: 0;
+  padding: 0;
+}

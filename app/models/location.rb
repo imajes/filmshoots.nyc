@@ -1,4 +1,5 @@
 class Location < Address
 
 
+
 end

@@ -17,7 +17,7 @@ class LocationParser < Parslet::Parser
   rule(:space?)  { space.maybe }
   rule(:blank)   { str('')  }
   rule(:tab)     { match['\t'] }
-  rule(:word)    { match['\w\-\(\)\.\' '] }
+  rule(:word)    { match['\w\-\(\)\.\' /'] }
 
   # composite literals
   rule(:between) { space? >> str('<>') >> space? }
@@ -28,13 +28,13 @@ class LocationParser < Parslet::Parser
   rule(:street) { (word.repeat(1) >> space?).repeat(1) }
 
   # composite location start
-  rule(:location) { street.as(:location_title) >> colon >> colon.maybe >> street.as(:place) }
+  rule(:location) { street.as(:location_title) >> colon >> colon.maybe >> street.as(:place) >> colon.maybe }
 
   # between streets
   rule(:address)   { tab >> street.as(:street) >> between >> street.as(:cross1) >> the_and >> street.as(:cross2) }
 
   # a line
-  rule(:sentence_parts)  { location.as(:location) | address.as(:intersection) | street.as(:address) }
+  rule(:sentence_parts)  { location.as(:location) | address.as(:intersection) | street.as(:address) | newline }
   rule(:line)           { newline.maybe >> sentence_parts >> newline.maybe }
 
   # composed strings

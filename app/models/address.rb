@@ -2,7 +2,7 @@ class Address < ActiveRecord::Base
 
   has_and_belongs_to_many :permits
 
-  before_save :geocode_address
+  # before_save :geocode_address
 
   acts_as_nested_set
 

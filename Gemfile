@@ -12,6 +12,7 @@ gem 'dotenv-rails'
 # DB/MODEL
 gem 'pg'
 gem 'awesome_nested_set'
+gem 'active_model_serializers'
 
 # SEARCH
 gem 'searchkick'

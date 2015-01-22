@@ -43,4 +43,13 @@ namespace :import do
     puts "\nDone importing #{size} permit records..."
   end
 
+  desc "geocode addresses..."
+  task :geocode => :environment do
+    Permit.all.each do |o|
+      next if o.addresses.any?
+      puts "Parsing #{o.id} - #{o.event_name}..."
+      o.expand_addresses
+      # sleep(3)
+    end
+  end
 end

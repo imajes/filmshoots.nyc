@@ -1,7 +1,12 @@
 class Permit < ActiveRecord::Base
 
+  include ActiveSupport::Inflector
+
   belongs_to :project
   has_and_belongs_to_many :addresses
+
+
+  before_save :trim_nulls
 
   # sql/stat/grouping queries
 
@@ -11,7 +16,8 @@ class Permit < ActiveRecord::Base
   end
 
   def self.import(item)
-    # [:event_id, :project_title, :event_name, :event_type, :event_start_date, :event_end_date, :entered_on, :location, :zip, :boro, :project_id]
+    # [:event_id, :project_title, :event_name, :event_type, :event_start_date, :event_end_date, :entered_on,
+    # :location, :zip, :boro, :project_id]
 
     item = item.to_h.symbolize_keys!
     item.values.map { |x| x.strip! unless x.nil? }
@@ -44,7 +50,7 @@ class Permit < ActiveRecord::Base
   end
 
   def zips
-    zip.split(",")
+    zip.to_s.split(",")
   end
 
   def original_location_as_paragraph
@@ -56,7 +62,7 @@ class Permit < ActiveRecord::Base
         line = "\n#{line}"
       elsif line =~ /between/
         line = "\t#{line}".gsub("&", "_and_")
-        line = line.gsub("and", "&").gsub("between", "<>").gsub("_and_", 'and')
+        line = line.gsub(" and ", " & ").gsub(" between ", " <> ").gsub("_and_", 'and')
       else
         line = line
       end
@@ -64,29 +70,55 @@ class Permit < ActiveRecord::Base
     end.join("\n")
   end
 
-  def expand_addresses(force = nil)
-    return if addresses.any? && force.nil?
-
+  def parse_address
     parsed = LocationParser.new.parse(original_location_as_paragraph)
     trans  = LocationTransform.new
 
-    results = trans.apply(parsed, permit: self)
+    trans.apply(parsed, permit: self)
+  end
 
-    Address.process_parsed(results, self)
+  def expand_addresses(force = nil)
+    return if addresses.any? && force.nil?
+    Address.process_parsed(parse_address, self)
   end
 
   def google_intersection(street, cross)
-    street = clean_street(street)
-    cross = clean_street(cross)
+    street = clean_street(street, :intersection)
+    cross = clean_street(cross, :intersection)
 
     "#{street} at #{cross}"
   end
 
-  def clean_street(str)
+  def clean_street(str, kind=:any)
     addr_zip  = (zips.size == 1 ? "NY #{zips.first}" : "NY")
-    addr_boro = (boro == "NULL" ? "New York" : boro)
+    addr_boro = (boro.nil? ? "New York" : boro)
 
-    "#{str.to_s.strip}, #{addr_boro}, #{addr_zip}"
+    if kind == :intersection
+      "#{format_address(str.to_s.strip, true)}, #{addr_boro}, #{addr_zip}"
+    else
+      "#{format_address(str.to_s.strip)}, #{addr_boro}, #{addr_zip}"
+    end
+  end
+
+  def format_address(str, strip_leading_num=false)
+    if /(?<st>[0-9]+) STREET/i =~ str
+      str.gsub!(/[0-9]+ STREET/i, "#{ordinalize(st)} STREET")
+    end
+
+    if /(?<ave>[0-9]+) AVE/i =~ str
+      str.gsub!(/[0-9]+ AVE/i, "#{ordinalize(ave)} AVE")
+    end
+
+    str.gsub!(/^[0-9]+\s/, '') if strip_leading_num
+
+    return str
+  end
+
+  private
+
+  def trim_nulls
+    self.zip  = nil if zip  == "NULL"
+    self.boro = nil if boro == "NULL"
   end
 
 end

@@ -22,4 +22,8 @@ class Project < ActiveRecord::Base
     project.update(city_ref: ref, title: title, company: company, category: category)
   end
 
+  def all_locations
+    permits.map(&:locations).flatten
+  end
+
 end
