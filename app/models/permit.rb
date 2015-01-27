@@ -1,10 +1,8 @@
 class Permit < ActiveRecord::Base
-
   include ActiveSupport::Inflector
 
   belongs_to :project
   has_and_belongs_to_many :addresses
-
 
   before_save :trim_nulls
 
@@ -70,6 +68,11 @@ class Permit < ActiveRecord::Base
     end.join("\n")
   end
 
+  attr_accessor :parse_log
+  def parse_log
+    @parse_log ||= Logger.new(File.new(Rails.root.join('log/parse.log')))
+  end
+
   def parse_address
     parsed = LocationParser.new.parse(original_location_as_paragraph)
     trans  = LocationTransform.new
@@ -79,7 +82,11 @@ class Permit < ActiveRecord::Base
 
   def expand_addresses(force = nil)
     return if addresses.any? && force.nil?
-    Address.process_parsed(parse_address, self)
+    begin
+      Address.process_parsed(parse_address, self)
+    rescue Parslet::ParseFailed => e
+      parse_log.warn "Parse Failed: #{id} #{project.title} - #{e.message}"
+    end
   end
 
   def google_intersection(street, cross)
