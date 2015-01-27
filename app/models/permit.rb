@@ -70,7 +70,7 @@ class Permit < ActiveRecord::Base
 
   attr_accessor :parse_log
   def parse_log
-    @parse_log ||= Logger.new(File.new(Rails.root.join('log/parse.log')))
+    @parse_log ||= Logger.new(Rails.root.join('log/parse.log'))
   end
 
   def parse_address
