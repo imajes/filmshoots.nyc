@@ -7,8 +7,9 @@ class Address < ActiveRecord::Base
   acts_as_nested_set
 
   def self.process_parsed(list, permit)
+    list = [list] unless list.is_a?(Array)
 
-    list.each do |addr|
+    list.to_a.each do |addr|
       handle_parsed_item(addr, permit)
     end
 
