@@ -85,7 +85,7 @@ class Permit < ActiveRecord::Base
     begin
       Address.process_parsed(parse_address, self)
     rescue Parslet::ParseFailed => e
-      parse_log.warn "Parse Failed: #{id} #{project.title} - #{e.message}"
+      parse_log.warn "Parse Failed: #{id} #{project.try(:title)} - #{e.message}"
     end
   end
 
