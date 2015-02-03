@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.1.4'
 
 # CORE DEPS
-gem 'rails', '~> 4.1.4'
+gem 'rails', '~> 4.2.0'
 gem 'puma'
 
 # EARLY TO APPLY TO OTHER GEMS
@@ -32,7 +32,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 # UI HELPERS
-gem 'sass-rails', github: 'rails/sass-rails'
+gem 'sass-rails'
 gem 'coffee-rails'
 gem 'haml-rails'
 gem 'jquery-rails'
