@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028173300) do
+ActiveRecord::Schema.define(version: 20150203210146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: true do |t|
-    t.string   "type"
-    t.string   "original"
-    t.string   "formatted"
-    t.string   "zipcode"
-    t.string   "neighborhood"
+  create_table "addresses", force: :cascade do |t|
+    t.string   "type",         limit: 255
+    t.string   "original",     limit: 255
+    t.string   "formatted",    limit: 255
+    t.string   "zipcode",      limit: 255
+    t.string   "neighborhood", limit: 255
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20141028173300) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "geocoded",     default: false
+    t.boolean  "geocoded",                 default: false
   end
 
   add_index "addresses", ["formatted"], name: "index_addresses_on_formatted", using: :btree
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141028173300) do
   add_index "addresses", ["rgt"], name: "index_addresses_on_rgt", using: :btree
   add_index "addresses", ["type"], name: "index_addresses_on_type", using: :btree
 
-  create_table "addresses_permits", force: true do |t|
+  create_table "addresses_permits", force: :cascade do |t|
     t.integer "permit_id"
     t.integer "address_id"
   end
@@ -52,14 +52,14 @@ ActiveRecord::Schema.define(version: 20141028173300) do
   add_index "addresses_permits", ["address_id"], name: "index_addresses_permits_on_address_id", using: :btree
   add_index "addresses_permits", ["permit_id"], name: "index_addresses_permits_on_permit_id", using: :btree
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "companies", force: true do |t|
-    t.string   "name"
+  create_table "companies", force: :cascade do |t|
+    t.string   "name",           limit: 255
     t.text     "original_names"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -67,17 +67,17 @@ ActiveRecord::Schema.define(version: 20141028173300) do
 
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree
 
-  create_table "permits", force: true do |t|
+  create_table "permits", force: :cascade do |t|
     t.integer  "event_ref"
     t.integer  "project_id"
-    t.string   "event_name"
-    t.string   "event_type"
+    t.string   "event_name",        limit: 255
+    t.string   "event_type",        limit: 255
     t.datetime "event_start"
     t.datetime "event_end"
     t.datetime "entered_on"
     t.text     "original_location"
-    t.string   "zip"
-    t.string   "boro"
+    t.string   "zip",               limit: 255
+    t.string   "boro",              limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -88,9 +88,9 @@ ActiveRecord::Schema.define(version: 20141028173300) do
   add_index "permits", ["project_id"], name: "index_permits_on_project_id", using: :btree
   add_index "permits", ["zip"], name: "index_permits_on_zip", using: :btree
 
-  create_table "projects", force: true do |t|
+  create_table "projects", force: :cascade do |t|
     t.integer  "city_ref"
-    t.string   "title"
+    t.string   "title",       limit: 255
     t.integer  "company_id"
     t.integer  "category_id"
     t.datetime "created_at"
