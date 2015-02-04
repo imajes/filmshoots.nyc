@@ -5,6 +5,23 @@ require 'byebug'
 
 class LocationParser < Parslet::Parser
 
+  def self.prepare(str)
+    str.gsub(/\s+/, " ").split(",").map do |line|
+
+      line.strip!
+
+      if line =~ /\:/
+        line = "\n#{line}"
+      elsif line =~ /between/
+        line = "\t#{line}".gsub("&", "_and_")
+        line = line.gsub(" and ", " & ").gsub(" between ", " <> ").gsub("_and_", 'and')
+      else
+        line = line
+      end
+
+    end.join("\n")
+  end
+
   # Monsignor McGolrick Park: Monsignor McGolrick Park , REVIEW AVENUE between 35 STREET and BORDEN AVENUE, REVIEW AVENUE between 35 STREET and BORDEN AVENUE, STARR AVENUE between VAN DAM STREET and BORDEN AVENUE,
   # Silvercup Studios East: 34-02 Starr Avenue , NORTH HENRY STREET between NASSAU AVENUE and NORMAN AVENUE, RUSSELL STREET between NASSAU AVENUE and DRIGGS AVENUE, NASSAU AVENUE between HUMBOLDT STREET and RUSSELL STREET,
   # RUSSELL STREET between NASSAU AVENUE and NORMAN AVENUE
@@ -16,6 +33,8 @@ class LocationParser < Parslet::Parser
   rule(:space)   { str(' ') }
   rule(:space?)  { space.maybe }
   rule(:blank)   { str('')  }
+  rule(:punct)   { str('&') }
+  rule(:punct?)  { punct.maybe }
   rule(:tab)     { match['\t'] }
   rule(:word)    { match['\w\-\(\)\.\' /'] }
 
@@ -25,7 +44,7 @@ class LocationParser < Parslet::Parser
   rule(:newline) { str("\r").maybe >> str("\n") }
 
   # grammar structure
-  rule(:street) { (word.repeat(1) >> space?).repeat(1) }
+  rule(:street) { (word.repeat(1) >> (space? | punct?)).repeat(1) }
 
   # composite location start
   rule(:location) { street.as(:location_title) >> colon >> colon.maybe >> street.as(:place) >> colon.maybe }

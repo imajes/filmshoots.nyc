@@ -68,30 +68,15 @@ class Permit < ActiveRecord::Base
     end.join("\n")
   end
 
-  attr_accessor :parse_log
-  def parse_log
-    @parse_log ||= Logger.new(Rails.root.join('log/parse.log'))
-  end
-
-  def parse_address
+  def parse_location
     parsed = LocationParser.new.parse(original_location_as_paragraph)
-    trans  = LocationTransform.new
-
-    trans.apply(parsed, permit: self)
+    LocationTransform.new.apply(parsed, permit: self)
   end
 
-  def expand_addresses(force = nil)
-    return if addresses.any? && force.nil?
-    begin
-      Address.process_parsed(parse_address, self)
-    rescue Parslet::ParseFailed => e
-      parse_log.warn "Parse Failed: #{id} #{project.try(:title)} - #{e.message}"
-    end
-  end
 
   def google_intersection(street, cross)
     street = clean_street(street, :intersection)
-    cross = clean_street(cross, :intersection)
+    cross  = clean_street(cross, :intersection)
 
     "#{street} at #{cross}"
   end
