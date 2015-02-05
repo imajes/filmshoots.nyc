@@ -85,6 +85,7 @@ group :test, :development do
   gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'guard-bundler'
   # test runs for james; this triggers
   # a blink1(m) device to show red/green
   gem 'guard-shell'

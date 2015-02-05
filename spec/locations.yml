@@ -1,14 +1,39 @@
+---
 streets_and_intersections_only:
-  original: "NORTH HENRY STREET  between GREENPOINT AVENUE and NORMAN AVENUE,  NORTH HENRY STREET  between GREENPOINT AVENUE and NORMAN AVENUE,  NORTH HENRY STREET  between GREENPOINT AVENUE and MESEROLE AVENUE,  NORTH   14 STREET  between WYTHE AVENUE and NASSAU AVENUE,  NORTH   14 STREET  between WYTHE AVENUE and NASSAU AVENUE,  NORTH   14 STREET  between WYTHE AVENUE and NASSAU AVENUE"
-  converted: "\tNORTH HENRY STREET <> GREENPOINT AVENUE & NORMAN AVENUE\n\tNORTH HENRY STREET <> GREENPOINT AVENUE & NORMAN AVENUE\n\tNORTH HENRY STREET <> GREENPOINT AVENUE & MESEROLE AVENUE\n\tNORTH 14 STREET <> WYTHE AVENUE & NASSAU AVENUE\n\tNORTH 14 STREET <> WYTHE AVENUE & NASSAU AVENUE\n\tNORTH 14 STREET <> WYTHE AVENUE & NASSAU AVENUE"
+  original: NORTH HENRY STREET between GREENPOINT AVENUE and NORMAN AVENUE, NORTH
+    HENRY STREET between GREENPOINT AVENUE and NORMAN AVENUE, NORTH HENRY STREET between
+    GREENPOINT AVENUE and MESEROLE AVENUE, NORTH 14 STREET between WYTHE AVENUE and
+    NASSAU AVENUE, NORTH 14 STREET between WYTHE AVENUE and NASSAU AVENUE, NORTH 14
+    STREET between WYTHE AVENUE and NASSAU AVENUE
+  parsed: '[{:intersection=>{:street=>"NORTH HENRY STREET "@1, :cross1=>"GREENPOINT
+    AVENUE "@23, :cross2=>"NORMAN AVENUE"@43}}, {:intersection=>{:street=>"NORTH HENRY
+    STREET "@58, :cross1=>"GREENPOINT AVENUE "@80, :cross2=>"NORMAN AVENUE"@100}},
+    {:intersection=>{:street=>"NORTH HENRY STREET "@115, :cross1=>"GREENPOINT AVENUE
+    "@137, :cross2=>"MESEROLE AVENUE"@157}}, {:intersection=>{:street=>"NORTH 14 STREET
+    "@174, :cross1=>"WYTHE AVENUE "@193, :cross2=>"NASSAU AVENUE"@208}}, {:intersection=>{:street=>"NORTH
+    14 STREET "@223, :cross1=>"WYTHE AVENUE "@242, :cross2=>"NASSAU AVENUE"@257}},
+    {:intersection=>{:street=>"NORTH 14 STREET "@272, :cross1=>"WYTHE AVENUE "@291,
+    :cross2=>"NASSAU AVENUE"@306}}]'
 primary_location:
-  original: "Monsignor McGolrick Park: Monsignor McGolrick Park , REVIEW AVENUE between 35 STREET and BORDEN AVENUE, REVIEW AVENUE between 35 STREET and BORDEN AVENUE, STARR AVENUE between VAN DAM STREET and BORDEN AVENUE, Silvercup Studios East: 34-02 Starr Avenue , NORTH HENRY STREET between NASSAU AVENUE and NORMAN AVENUE, RUSSELL STREET between NASSAU AVENUE and DRIGGS AVENUE, NASSAU AVENUE between HUMBOLDT STREET and RUSSELL STREET, RUSSELL STREET between NASSAU AVENUE and NORMAN AVENUE"
-  converted:  "\nMonsignor McGolrick Park: Monsignor McGolrick Park\n\tREVIEW AVENUE <> 35 STREET & BORDEN AVENUE\n\tREVIEW AVENUE <> 35 STREET & BORDEN AVENUE\n\tSTARR AVENUE <> VAN DAM STREET & BORDEN AVENUE\n\nSilvercup Studios East: 34-02 Starr Avenue\n\tNORTH HENRY STREET <> NASSAU AVENUE & NORMAN AVENUE\n\tRUSSELL STREET <> NASSAU AVENUE & DRIGGS AVENUE\n\tNASSAU AVENUE <> HUMBOLDT STREET & RUSSELL STREET\n\tRUSSELL STREET <> NASSAU AVENUE & NORMAN AVENUE"
+  original: 'Monsignor McGolrick Park: Monsignor McGolrick Park , REVIEW AVENUE between
+    35 STREET and BORDEN AVENUE, REVIEW AVENUE between 35 STREET and BORDEN AVENUE,
+    STARR AVENUE between VAN DAM STREET and BORDEN AVENUE, Silvercup Studios East:
+    34-02 Starr Avenue , NORTH HENRY STREET between NASSAU AVENUE and NORMAN AVENUE,
+    RUSSELL STREET between NASSAU AVENUE and DRIGGS AVENUE, NASSAU AVENUE between
+    HUMBOLDT STREET and RUSSELL STREET, RUSSELL STREET between NASSAU AVENUE and NORMAN
+    AVENUE'
+  parsed: '[{:location=>{:location_title=>"Monsignor McGolrick Park"@1, :place=>"
+    Monsignor McGolrick Park"@26}}, {:intersection=>{:street=>"REVIEW AVENUE "@53,
+    :cross1=>"35 STREET "@70, :cross2=>"BORDEN AVENUE"@82}}, {:intersection=>{:street=>"REVIEW
+    AVENUE "@97, :cross1=>"35 STREET "@114, :cross2=>"BORDEN AVENUE"@126}}, {:intersection=>{:street=>"STARR
+    AVENUE "@141, :cross1=>"VAN DAM STREET "@157, :cross2=>"BORDEN AVENUE"@174}},
+    {:location=>{:location_title=>"Silvercup Studios East"@189, :place=>" 34-02 Starr
+    Avenue"@212}}, {:intersection=>{:street=>"NORTH HENRY STREET "@233, :cross1=>"NASSAU
+    AVENUE "@255, :cross2=>"NORMAN AVENUE"@271}}, {:intersection=>{:street=>"RUSSELL
+    STREET "@286, :cross1=>"NASSAU AVENUE "@304, :cross2=>"DRIGGS AVENUE"@320}}, {:intersection=>{:street=>"NASSAU
+    AVENUE "@335, :cross1=>"HUMBOLDT STREET "@352, :cross2=>"RUSSELL STREET"@370}},
+    {:intersection=>{:street=>"RUSSELL STREET "@386, :cross1=>"NASSAU AVENUE "@404,
+    :cross2=>"NORMAN AVENUE"@420}}]'
 location_only_with_amp:
-  original: "Coney Island Beach & Boardwalk: Coney Island Beach"
-  converted: "\nConey Island Beach & Boardwalk: Coney Island Beach"
-
-
-
-
-
+  original: 'Coney Island Beach & Boardwalk: Coney Island Beach'
+  parsed: ''

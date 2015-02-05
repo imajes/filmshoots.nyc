@@ -5,61 +5,57 @@ require 'byebug'
 
 class LocationParser < Parslet::Parser
 
-  def self.prepare(str)
-    str.gsub(/\s+/, " ").split(",").map do |line|
-
-      line.strip!
-
-      if line =~ /\:/
-        line = "\n#{line}"
-      elsif line =~ /between/
-        line = "\t#{line}".gsub("&", "_and_")
-        line = line.gsub(" and ", " & ").gsub(" between ", " <> ").gsub("_and_", 'and')
-      else
-        line = line
-      end
-
-    end.join("\n")
-  end
-
-  # Monsignor McGolrick Park: Monsignor McGolrick Park , REVIEW AVENUE between 35 STREET and BORDEN AVENUE, REVIEW AVENUE between 35 STREET and BORDEN AVENUE, STARR AVENUE between VAN DAM STREET and BORDEN AVENUE,
-  # Silvercup Studios East: 34-02 Starr Avenue , NORTH HENRY STREET between NASSAU AVENUE and NORMAN AVENUE, RUSSELL STREET between NASSAU AVENUE and DRIGGS AVENUE, NASSAU AVENUE between HUMBOLDT STREET and RUSSELL STREET,
-  # RUSSELL STREET between NASSAU AVENUE and NORMAN AVENUE
-  #
-
-  # literals
+  # simple literals
   rule(:colon)   { str(':') }
   rule(:comma)   { str(',') }
+  rule(:comma?)   { comma.maybe }
   rule(:space)   { str(' ') }
   rule(:space?)  { space.maybe }
   rule(:blank)   { str('')  }
   rule(:punct)   { str('&') }
   rule(:punct?)  { punct.maybe }
-  rule(:tab)     { match['\t'] }
-  rule(:word)    { match['\w\-\(\)\.\' /'] }
+
+  # word matches
+  rule(:between) { str('between').as(:btwn) }
+  rule(:the_and) { str('and').as(:and) }
+
+  # matched literals
+  rule(:tab)       { match['\t'] }
+  rule(:word)      { match['\w\-\(\)\.\' /'] }
+  rule(:letter)      { match['\S'] }
+  rule(:not_comma) { match['[^,]'] }
+  rule(:not_space) { match['[^\s]'] }
 
   # composite literals
-  rule(:between) { space? >> str('<>') >> space? }
-  rule(:the_and) { space? >> str('&') >> space? }
-  rule(:newline) { str("\r").maybe >> str("\n") }
+
+  rule(:street_delimiter) { (between | the_and) >> space? }
+
+  rule(:comma_space) { comma? >> space? }
+  rule(:newline)     { str("\r").maybe >> str("\n") }
 
   # grammar structure
-  rule(:street) { (word.repeat(1) >> (space? | punct?)).repeat(1) }
+  rule(:street) { (letter.repeat(1) >> space?).repeat(1) }
 
   # composite location start
   rule(:location) { street.as(:location_title) >> colon >> colon.maybe >> street.as(:place) >> colon.maybe }
 
-  # between streets
-  rule(:address)   { tab >> street.as(:street) >> between >> street.as(:cross1) >> the_and >> street.as(:cross2) }
+  rule(:street_word) { letter.repeat(1).as(:word) >> space? }
+  rule(:intersection) { (street_delimiter | street_word).repeat(1) }
 
-  # a line
-  rule(:sentence_parts)  { location.as(:location) | address.as(:intersection) | street.as(:address) | newline }
-  rule(:line)           { newline.maybe >> sentence_parts >> newline.maybe }
+  rule(:fragment_types) { location.as(:location) | intersection.as(:intersection) }
 
-  # composed strings
-  rule(:entire_graf) { line.repeat }
+  rule(:fragment) { (fragment_types.repeat(1) >> space?).repeat(1) >> comma_space }
 
-  root :entire_graf
+  rule(:chunks) { (not_space.repeat(1) >> space?).repeat(1) >> comma_space) }
+
+  rule(:graf_ast) { chunks.as(:part).repeat(1) }
+
+  root :graf_ast
+
+  rule(:sentence_captures) { sentence_words.capture(:parts) >>
+                             dynamic { |src,ctx| debugger; str('a') }
+                            }
+
 
 end
 

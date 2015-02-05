@@ -215,6 +215,10 @@ GEM
     guard-blink1 (0.0.3)
       colormath (~> 0.1.2)
       rb-blink1 (~> 0.0.6)
+    guard-bundler (2.1.0)
+      bundler (~> 1.0)
+      guard (~> 2.2)
+      guard-compat (~> 1.1)
     guard-compat (1.2.1)
     guard-rspec (4.5.0)
       guard (~> 2.1)
@@ -481,6 +485,7 @@ DEPENDENCIES
   geocoder
   guard
   guard-blink1
+  guard-bundler
   guard-rspec
   guard-shell
   haml-rails

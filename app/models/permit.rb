@@ -51,6 +51,12 @@ class Permit < ActiveRecord::Base
     zip.to_s.split(",")
   end
 
+
+  def original_location
+    # clean the extra whitespace
+    attributes['original_location'].gsub(/\s+/, " ")
+  end
+
   def original_location_as_paragraph
     original_location.gsub(/\s+/, " ").split(",").map do |line|
 
