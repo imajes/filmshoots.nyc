@@ -7,55 +7,43 @@ class LocationParser < Parslet::Parser
 
   # simple literals
   rule(:colon)   { str(':') }
+  rule(:colon?)   { colon.maybe }
   rule(:comma)   { str(',') }
   rule(:comma?)   { comma.maybe }
   rule(:space)   { str(' ') }
   rule(:space?)  { space.maybe }
-  rule(:blank)   { str('')  }
-  rule(:punct)   { str('&') }
-  rule(:punct?)  { punct.maybe }
+  rule(:eof)     { any.absent? }
 
   # word matches
   rule(:between) { str('between').as(:btwn) }
   rule(:the_and) { str('and').as(:and) }
 
   # matched literals
-  rule(:tab)       { match['\t'] }
-  rule(:word)      { match['\w\-\(\)\.\' /'] }
-  rule(:letter)      { match['\S'] }
+  rule(:letter)    { match['^[\s:,]'] }
   rule(:not_comma) { match['[^,]'] }
   rule(:not_space) { match['[^\s]'] }
 
-  # composite literals
-
+  # delimiter literals
   rule(:street_delimiter) { (between | the_and) >> space? }
+  rule(:colon_delimiter) { colon >> colon? >> space? }
+  rule(:comma_delimiter) { space? >> (comma >> space?) | (eof | colon) }
 
-  rule(:comma_space) { comma? >> space? }
-  rule(:newline)     { str("\r").maybe >> str("\n") }
-
-  # grammar structure
+  # streets
   rule(:street) { (letter.repeat(1) >> space?).repeat(1) }
-
-  # composite location start
-  rule(:location) { street.as(:location_title) >> colon >> colon.maybe >> street.as(:place) >> colon.maybe }
-
   rule(:street_word) { letter.repeat(1).as(:word) >> space? }
-  rule(:intersection) { (street_delimiter | street_word).repeat(1) }
 
-  rule(:fragment_types) { location.as(:location) | intersection.as(:intersection) }
+  # address types
+  rule(:location)     { street.as(:title) >> colon_delimiter >> street.as(:place) >> colon? >> comma_delimiter }
+  rule(:intersection) { (street_delimiter | street_word).repeat(1) >> comma_delimiter }
+  rule(:plain_street) { street >> comma_delimiter }
+  rule(:missing_part) { comma >> space? }
 
-  rule(:fragment) { (fragment_types.repeat(1) >> space?).repeat(1) >> comma_space }
+  # structure
+  rule(:fragment) { location.as(:location) | plain_street.as(:street) | missing_part.as(:missing)  | intersection.as(:intersection) }
 
-  rule(:chunks) { (not_space.repeat(1) >> space?).repeat(1) >> comma_space) }
+  rule(:shoot_locations) { fragment.repeat(1) }
 
-  rule(:graf_ast) { chunks.as(:part).repeat(1) }
-
-  root :graf_ast
-
-  rule(:sentence_captures) { sentence_words.capture(:parts) >>
-                             dynamic { |src,ctx| debugger; str('a') }
-                            }
-
+  root :shoot_locations
 
 end
 

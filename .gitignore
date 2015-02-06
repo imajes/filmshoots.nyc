@@ -21,3 +21,4 @@ vendor/Dashgum
 /.permits/
 
 /db/*.pgdump
+.guard_result
