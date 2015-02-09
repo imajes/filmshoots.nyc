@@ -39,7 +39,7 @@ class LocationParser < Parslet::Parser
   rule(:missing_part) { comma >> space? }
 
   # structure
-  rule(:fragment) { location.as(:location) | plain_street.as(:street) | missing_part.as(:missing)  | intersection.as(:intersection) }
+  rule(:fragment) { location.as(:location) | intersection.as(:intersection) | plain_street.as(:street) | missing_part.as(:missing) }
 
   rule(:shoot_locations) { fragment.repeat(1) }
 

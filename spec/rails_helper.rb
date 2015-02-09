@@ -48,7 +48,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    Permits::FactoryGirl.print_statistics
+    # Permits::FactoryGirl.print_statistics
   end
 
   config.expect_with :rspec do |expectations|
