@@ -1,7 +1,11 @@
 require 'parslet'
 require 'parslet/convenience'
-require 'awesome_print'
-require 'byebug'
+# dev reqs
+begin
+  require 'awesome_print'
+  require 'byebug'
+rescue LoadError
+end
 
 class LocationParser < Parslet::Parser
 
@@ -15,31 +19,44 @@ class LocationParser < Parslet::Parser
   rule(:eof)     { any.absent? }
 
   # word matches
-  rule(:between) { str('between').as(:btwn) }
-  rule(:the_and) { str('and').as(:and) }
+  rule(:between) { str('between') >> space? }
+  rule(:the_and) { str('and') >> space? }
 
   # matched literals
   rule(:letter)    { match['^[\s:,]'] }
+  rule(:upper_letter) { match['A-Z0-9 '] }
   rule(:not_comma) { match['[^,]'] }
   rule(:not_space) { match['[^\s]'] }
 
   # delimiter literals
-  rule(:street_delimiter) { (between | the_and) >> space? }
+  #rule(:street_delimiter) { (between | the_and) >> space? }
   rule(:colon_delimiter) { colon >> colon? >> space? }
   rule(:comma_delimiter) { space? >> (comma >> space?) | (eof | colon) }
 
   # streets
-  rule(:street) { (letter.repeat(1) >> space?).repeat(1) }
-  rule(:street_word) { letter.repeat(1).as(:word) >> space? }
+  rule(:street)       { (letter.repeat(1) >> space?).repeat(1) }
+  rule(:street_upper) { (upper_letter.repeat(1) >> space?).repeat(1) }
+  # rule(:street_word)  { letter.repeat(1).as(:word) >> space? }
 
   # address types
-  rule(:location)     { street.as(:title) >> colon_delimiter >> street.as(:place) >> colon? >> comma_delimiter }
-  rule(:intersection) { (street_delimiter | street_word).repeat(1) >> comma_delimiter }
   rule(:plain_street) { street >> comma_delimiter }
   rule(:missing_part) { comma >> space? }
 
+  rule(:location)     { street.as(:title) >> colon_delimiter >> street.as(:place) >> colon? >> comma_delimiter }
+  # rule(:intersection) { (street_delimiter | street_word).repeat(1) >> comma_delimiter }
+
+  rule(:intersection) { street_upper.as(:place) >>
+                        between >>
+                        street_upper.as(:cross1) >>
+                        the_and >>
+                        street_upper.as(:cross2) >>
+                        comma_delimiter }
+
   # structure
-  rule(:fragment) { location.as(:location) | intersection.as(:intersection) | plain_street.as(:street) | missing_part.as(:missing) }
+  rule(:fragment) { location.as(:location) | 
+                    intersection.as(:intersection) | 
+                    plain_street.as(:street) | 
+                    missing_part.as(:missing) }
 
   rule(:shoot_locations) { fragment.repeat(1) }
 
