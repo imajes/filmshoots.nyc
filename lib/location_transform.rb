@@ -6,9 +6,9 @@ require 'byebug'
 class LocationTransform < Parslet::Transform
 
 
-  rule(intersection: subtree(:x)) { puts x }
+  # rule(intersection: subtree(:x)) { puts x }
 
-  rule(intersection: simple(:x), cross1: simple(:y), cross2: simple(:z)) {
+  rule(place: simple(:x), cross1: simple(:y), cross2: simple(:z)) {
             { street: permit.clean_street(x),
               cross1: permit.google_intersection(x, y),
               cross2: permit.google_intersection(x, z)
