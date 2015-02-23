@@ -34,7 +34,7 @@ namespace :import do
 
     CSV.foreach(Rails.root.join("db/permits.csv"), headers: true) do |permit|
 
-      Permit.import(permit)
+      ImportPermitService.run!(permit)
 
       print "."
       size += 1
@@ -49,7 +49,7 @@ namespace :import do
       batch.each do |o|
         next if o.addresses.any?
         puts "Parsing #{o.id} - #{o.project.title}: #{o.event_name}..."
-        ParseAddress.new(o).process!
+        ParseAddressService.new(o).process!
       end
     end
   end

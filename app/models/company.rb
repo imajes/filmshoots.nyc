@@ -40,7 +40,7 @@ class Company < ActiveRecord::Base
     company.original_names = orig
     company.save
 
-    return company
+    company
   end
 
 end

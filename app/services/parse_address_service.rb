@@ -3,7 +3,7 @@
 # via the parslet classes. Then, it triggers
 # the address parsing service.
 
-class ParseAddress
+class ParseAddressService
 
   attr_accessor :parse_log, :permit, :force
 
