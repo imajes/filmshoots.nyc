@@ -7,13 +7,17 @@ class ParseAddressService
 
   attr_accessor :parse_log, :permit, :force
 
+  def self.run!(item, force=nil)
+    new(item, force).process!
+  end
+  
   def initialize(permit, force=nil)
     @permit = permit
     @force = force
   end
 
   def process!
-    return if permit.addresses.any? && force.nil?
+    return if permit.locations.any? && force.nil?
 
     if permit.original_location.blank?
       msg = "Permit Failed: Skipping #{permit.id} #{permit.project.try(:title)}"

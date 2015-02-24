@@ -3,7 +3,7 @@ class CreateMapTypes < ActiveRecord::Migration
     create_table :map_types do |t|
       t.string :type
       t.references :address
-      t.references :permits
+      t.references :permit
 
       t.integer :parent_id
       t.integer :lft

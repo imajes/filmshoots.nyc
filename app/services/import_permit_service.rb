@@ -1,16 +1,17 @@
 class ImportPermitService
 
-  attr_reader :attrs
+  attr_reader :attrs, :item
 
   def self.run!(item)
     new(item).perform!
   end
 
-  def initialize(item)
+  def initialize(new_permit)
+    debugger
     # [:event_id, :project_title, :event_name, :event_type, :event_start_date, :event_end_date, :entered_on,
     # :location, :zip, :boro, :project_id]
 
-    item = item.to_h.symbolize_keys!
+    @item = new_permit.to_h.symbolize_keys!
     item.values.map { |x| x.strip! unless x.nil? }
 
     @attrs = { event_name:        item[:event_name],
@@ -31,6 +32,8 @@ class ImportPermitService
     permit.assign_attributes(attrs)
     permit.save!
 
+    # decipher addresses...
+    ParseAddressService.run!(permit)
   end
 
 end

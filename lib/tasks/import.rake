@@ -33,7 +33,6 @@ namespace :import do
     end
 
     CSV.foreach(Rails.root.join("db/permits.csv"), headers: true) do |permit|
-
       ImportPermitService.run!(permit)
 
       print "."
@@ -47,7 +46,7 @@ namespace :import do
   task :geocode => :environment do
     Permit.find_in_batches(batch_size: 100).each do |batch|
       batch.each do |o|
-        next if o.addresses.any?
+        next if o.locations.any?
         puts "Parsing #{o.id} - #{o.project.title}: #{o.event_name}..."
         ParseAddressService.new(o).process!
       end

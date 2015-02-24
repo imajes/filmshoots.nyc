@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150223181650) do
   create_table "map_types", force: :cascade do |t|
     t.string   "type"
     t.integer  "address_id"
-    t.integer  "permits_id"
+    t.integer  "permit_id"
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
