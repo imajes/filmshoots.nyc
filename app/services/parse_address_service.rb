@@ -34,26 +34,22 @@ class ParseAddressService
       when :location
         l = addr[:location]
 
-        @location = Location.create(original: "#{l[:location_title]}, #{l[:place]}")
-        permit.addresses << @location
+        @location = permit.locations.create!(original_address: "#{l[:location_title]}, #{l[:place]}")
 
       when :address
-        @location = Location.create(original: addr[:address])
-        permit.addresses << @location
+        @location = permit.locations.create(original_address: addr[:address])
 
       when :intersection
         l = addr[:intersection]
 
-        @location = Location.new if @location.nil?
+        @location = permit.locations.build if @location.nil?
 
         if l.has_key?(:street)
-          @location = Location.create(parent_id: @location.id, original: l[:street])
-          permit.addresses << @location
+          @location = permit.locations.create(parent_id: @location.id, original_address: l[:street])
         end
 
         [:cross1, :cross2].each do |c|
-          ins = Intersection.create(parent_id: @location.id, original: l[c])
-          permit.addresses << ins
+          @location.intersections.create(parent_id: @location.id, original_address: l[c])
         end
 
       else

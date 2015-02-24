@@ -23,7 +23,7 @@ class Permit < ActiveRecord::Base
 
   def original_location
     # clean the extra whitespace
-    attributes['original_location'].gsub(/\s+/, " ")
+    attributes['original_location'].gsub(/\s+/, " ") if attributes['original_location']
   end
 
   def original_location_as_paragraph
