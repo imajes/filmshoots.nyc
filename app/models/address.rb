@@ -1,10 +1,8 @@
 class Address < ActiveRecord::Base
 
-  has_and_belongs_to_many :permits
+  has_many :map_types
 
   # before_save :geocode_address
-
-  acts_as_nested_set
 
 
   private

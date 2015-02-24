@@ -1,6 +1,4 @@
-# require "codeclimate-test-reporter"
-# CodeClimate::TestReporter.start
-
+require 'cover_me'
 require 'database_cleaner'
 require 'byebug'
 # require 'vcr'
@@ -48,7 +46,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    # Permits::FactoryGirl.print_statistics
+    Permits::FactoryGirl.print_statistics
   end
 
   config.expect_with :rspec do |expectations|
@@ -67,14 +65,13 @@ RSpec.configure do |config|
   # database cleaner config
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 
   # Limits the available syntax to the non-monkey patched syntax that is recommended.

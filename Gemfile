@@ -49,6 +49,7 @@ gem 'kaminari'
 
 # MIDDLEWARE
 gem 'rack-cache', require: 'rack/cache'
+gem 'rack-cors',  require: 'rack/cors'
 
 # DEPLOYMENT
 gem 'asset_sync'
@@ -68,15 +69,17 @@ end
 
 group :test, :development do
   gem "quiet_assets"
+  gem 'terminal-table'
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "awesome_print", github: 'imajes/awesome_print'
+  gem "awesome_print"
   gem "rspec-rails"
-  gem 'fuubar', '~> 2.0.0.rc1'
+  gem 'cover_me'
+  gem 'fuubar'
   gem "timecop"
   gem "factory_girl"
   gem "factory_girl_rails"
