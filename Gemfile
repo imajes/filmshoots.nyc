@@ -78,7 +78,6 @@ group :test, :development do
   gem 'pry-rescue'
   gem "awesome_print"
   gem "rspec-rails"
-  gem 'cover_me'
   gem 'fuubar'
   gem "timecop"
   gem "factory_girl"

@@ -1,4 +1,3 @@
-require 'cover_me'
 require 'database_cleaner'
 require 'byebug'
 # require 'vcr'

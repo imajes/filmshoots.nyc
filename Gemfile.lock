@@ -77,13 +77,9 @@ GEM
     coffee-script-source (1.9.1)
     colormath (0.1.2)
     columnize (0.9.0)
-    configatron (4.5.0)
     connection_pool (2.1.1)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
-    cover_me (1.2.0)
-      configatron
-      hashie
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.4.0)
@@ -481,7 +477,6 @@ DEPENDENCIES
   bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails
-  cover_me
   database_cleaner
   dotenv-rails
   factory_girl
