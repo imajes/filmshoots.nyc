@@ -38,7 +38,7 @@ class LocationParser < Parslet::Parser
 
   # address types
   rule(:plain_street) { street >> comma_delimiter }
-  rule(:missing_part) { comma >> space? }
+  rule(:missing_part) { (comma | colon) >> space? }
 
   rule(:location)     { street.as(:title) >>
                         colon_delimiter >>

@@ -162,6 +162,8 @@ RSpec.describe LocationParser, type: :lib do
       it 'should handle missing entries' do
         expect(parser.missing_part).to parse(',')
         expect(parser.missing_part).to parse(', ')
+        expect(parser.missing_part).to parse(':')
+        expect(parser.missing_part).to parse(': ')
         expect(parser.missing_part).not_to parse('abc,')
         expect(parser.missing_part).not_to parse('abc, ')
       end

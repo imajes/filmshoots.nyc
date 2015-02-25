@@ -20,7 +20,7 @@ class ParseAddressService
     return if permit.locations.any? && force.nil?
 
     if permit.original_location.blank?
-      msg = "Permit Failed: Skipping #{permit.id} #{permit.project.try(:title)}"
+      msg = "Permit Failed: #{permit.id} missing location #{permit.project.try(:title)}"
       puts msg
       parse_log.warn msg
       return

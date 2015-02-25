@@ -46,6 +46,7 @@ class Permit < ActiveRecord::Base
   end
 
   def parse_location
+    nil if original_location.blank?
     parsed = LocationParser.new.parse(original_location)
     LocationTransform.new.apply(parsed, permit: self)
   end
