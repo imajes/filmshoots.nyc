@@ -2,12 +2,12 @@ class Address < ActiveRecord::Base
 
   has_many :map_types
 
-  # before_save :geocode_address
-
+  before_save :geocode_address
 
   private
 
   def geocode_address
+    return if geocoded?
     geo_results = Geocoder.search(original)
 
     if geo_results.any?
