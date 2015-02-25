@@ -7,32 +7,32 @@
 
 # Offense count: 1
 Lint/AmbiguousOperator:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 2
 Lint/AmbiguousRegexpLiteral:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 Lint/Debugger:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 Lint/HandleExceptions:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 Lint/RescueException:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 4
 # Cop supports --auto-correct.
 Lint/UnusedBlockArgument:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 3
 Lint/UselessAssignment:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 9
 Metrics/AbcSize:
@@ -56,31 +56,31 @@ Metrics/MethodLength:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
 Style/AlignHash:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/BlockEndNewline:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/Blocks:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 7
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/DeprecatedHashMethods:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 31
 Style/Documentation:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 15
 # Cop supports --auto-correct.
@@ -118,7 +118,7 @@ Style/EmptyLinesAroundModuleBody:
 # Offense count: 1
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 15
 # Cop supports --auto-correct.
@@ -152,7 +152,7 @@ Style/MultilineBlockLayout:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/MultilineOperationIndentation:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -163,7 +163,7 @@ Style/NumericLiterals:
 # Cop supports --auto-correct.
 # Configuration parameters: AllowSafeAssignment.
 Style/ParenthesesAroundCondition:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 2
 # Configuration parameters: SupportedStyles.
@@ -173,18 +173,18 @@ Style/RaiseArgs:
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/RedundantBegin:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: AllowMultipleReturnValues.
 Style/RedundantReturn:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/RedundantSelf:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 5
 Style/RegexpLiteral:
@@ -194,12 +194,12 @@ Style/RegexpLiteral:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/SignalException:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 47
 # Cop supports --auto-correct.
 Style/SingleSpaceBeforeFirstArg:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 4
 # Cop supports --auto-correct.

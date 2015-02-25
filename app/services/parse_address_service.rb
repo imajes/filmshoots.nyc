@@ -20,7 +20,6 @@ class ParseAddressService
 
     if permit.original_location.blank?
       msg = "Permit Failed: #{permit.id} missing location #{permit.project.try(:title)}"
-      puts msg
       parse_log.warn msg
       return
     end
@@ -31,37 +30,35 @@ class ParseAddressService
   end
 
   def create_address(addr)
-    begin
-      case addr.keys.first
-      when :missing
-        return
-      when :location
-        l = addr[:location]
+    case addr.keys.first
+    when :missing
+      return
+    when :location
+      l = addr[:location]
 
-        @location = permit.locations.create(original_address: "#{l[:location_title]}, #{l[:place]}")
+      @location = permit.locations.create(original_address: "#{l[:location_title]}, #{l[:place]}")
 
-      when :address
-        @location = permit.locations.create(original_address: addr[:address])
+    when :address
+      @location = permit.locations.create(original_address: addr[:address])
 
-      when :intersection
-        l = addr[:intersection]
+    when :intersection
+      l = addr[:intersection]
 
-        @location = permit.locations.build if @location.nil?
+      @location = permit.locations.build if @location.nil?
 
-        if l.has_key?(:street)
-          @location = permit.locations.create(parent_id: @location.id, original_address: l[:street])
-        end
-
-        [:cross1, :cross2].each do |c|
-          @location.intersections.create(parent_id: @location.id, original_address: l[c])
-        end
-
-      else
-        raise Exception.new("Unexpected address thing happened... #{@location.inspect}..")
+      if l.key?(:street)
+        @location = permit.locations.create(parent_id: @location.id, original_address: l[:street])
       end
-    rescue Exception => e
-      debugger
+
+      [:cross1, :cross2].each do |c|
+        @location.intersections.create(parent_id: @location.id, original_address: l[c])
+      end
+
+    else
+      fail "Unexpected address thing happened... #{@location.inspect}.."
     end
+  rescue Exception => e
+    debugger
   end
 
   def parse_log
@@ -69,13 +66,10 @@ class ParseAddressService
   end
 
   def parsed_address
-    begin
-      permit.parse_location
-    rescue Parslet::ParseFailed => e
-      msg = "Parse Failed: #{permit.id} #{permit.project.try(:title)} - #{e.message}"
-      puts msg
-      parse_log.warn msg
-      return nil
-    end
+    permit.parse_location
+  rescue Parslet::ParseFailed => e
+    msg = "Parse Failed: #{permit.id} #{permit.project.try(:title)} - #{e.message}"
+    parse_log.warn msg
+    return nil
   end
 end

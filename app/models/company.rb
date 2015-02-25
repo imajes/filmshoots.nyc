@@ -33,7 +33,7 @@ class Company < ActiveRecord::Base
 
     name = name.strip.titleize
 
-    company = self.where(name: name).first_or_create!
+    company = where(name: name).first_or_create!
     company.original_names = orig
     company.save
 

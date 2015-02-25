@@ -16,7 +16,7 @@ class Permit < ActiveRecord::Base
 
   def self.issued_by_month
     sql = "select count(*) as count, date_trunc('month', event_start) as month, date_trunc('year', event_start) as year from permits group by year, month order by year asc, month asc"
-    self.find_by_sql(sql)
+    find_by_sql(sql)
   end
 
   def zips
@@ -81,7 +81,7 @@ class Permit < ActiveRecord::Base
 
     str.gsub!(/^[0-9]+\s/, '') if strip_leading_num
 
-    return str
+    str
   end
 
   private
