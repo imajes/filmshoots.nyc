@@ -124,29 +124,29 @@ Style/GuardClause:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/HashSyntax:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 5
 # Cop supports --auto-correct.
 Style/IndentationConsistency:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: Width.
 Style/IndentationWidth:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/MethodDefParentheses:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/MultilineBlockLayout:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -211,13 +211,13 @@ Style/SpaceAroundEqualsInParameterDefault:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
 Style/SpaceInsideBlockBraces:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
 Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 188
 # Cop supports --auto-correct.
@@ -229,12 +229,12 @@ Style/StringLiterals:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/TrailingBlankLines:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/TrailingWhitespace:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.

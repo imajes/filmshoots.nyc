@@ -3,13 +3,13 @@ STDOUT.sync = true
 
 namespace :import do
   desc 'import projects list...'
-  task :projects => :environment do
+  task projects: :environment do
     size = 1
 
     CSV.foreach(Rails.root.join('db/projects.csv')) do |project|
       next if project.first == 'Project Id'
 
-      project.map {|t| t.to_s.strip! }
+      project.map { |t| t.to_s.strip! }
       id, title, company, category = project
 
       Project.import(id.to_i, title, company, category)
@@ -22,7 +22,7 @@ namespace :import do
   end
 
   desc 'import permits...'
-  task :permits => :environment do
+  task permits: :environment do
     size = 1
 
     if Project.count.zero?
@@ -40,7 +40,7 @@ namespace :import do
   end
 
   desc 'geocode addresses...'
-  task :geocode => :environment do
+  task geocode: :environment do
     Permit.find_in_batches(batch_size: 100).each do |batch|
       batch.each do |o|
         next if o.locations.any?

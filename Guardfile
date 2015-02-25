@@ -40,4 +40,3 @@ guard :shell do
     GuardBlink1.blink_colour(firstline)
   end
 end
-

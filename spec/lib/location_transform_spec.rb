@@ -35,7 +35,7 @@ RSpec.describe LocationTransform, type: :lib do
     end
 
     it 'should have 2 locations' do
-      expect(@keys.select {|t| t == :location }.size).to eq(2)
+      expect(@keys.select { |t| t == :location }.size).to eq(2)
     end
 
     it 'should have 7 intersections' do

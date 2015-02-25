@@ -253,4 +253,3 @@ RSpec.describe LocationParser, type: :lib do
     end
   end
 end
-

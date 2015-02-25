@@ -1,4 +1,4 @@
 require 'rails_helper'
 
-RSpec.describe Data::ProjectsController, :type => :controller do
+RSpec.describe Data::ProjectsController, type: :controller do
 end

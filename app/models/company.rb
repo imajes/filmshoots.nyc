@@ -8,7 +8,7 @@ class Company < ActiveRecord::Base
     JSON.parse(attributes['original_names'] || '[]')
   end
 
-  def original_names= new_name
+  def original_names=(new_name)
     original_names_will_change!
 
     to_save = (original_names << new_name).uniq

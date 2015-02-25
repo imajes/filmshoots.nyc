@@ -21,7 +21,7 @@ module Permits::FactoryGirl
 
     puts "\nFactory Girl Run Results.. [strategies per factory]:"
     rows = @factory_girl_results.map { |r| [r.first, r.last.fetch(:create, 0), r.last.fetch(:build, 0), r.last.fetch(:build_stubbed, 0)] }
-    rows = rows.sort_by {|t| [t[1], t[3]] }.reverse
+    rows = rows.sort_by { |t| [t[1], t[3]] }.reverse
 
     table = Terminal::Table.new headings: ['Factory', 'Created', 'Built', 'Stubbed'], rows: rows
     table.align_column(0, :right)
