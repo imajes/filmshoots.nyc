@@ -10,7 +10,7 @@ class ParseAddressService
   def self.run!(item, force=nil)
     new(item, force).process!
   end
-  
+
   def initialize(permit, force=nil)
     @permit = permit
     @force = force
@@ -32,13 +32,14 @@ class ParseAddressService
   end
 
   def create_address(addr)
-
     begin
       case addr.keys.first
+      when :missing
+        return
       when :location
         l = addr[:location]
 
-        @location = permit.locations.create!(original_address: "#{l[:location_title]}, #{l[:place]}")
+        @location = permit.locations.create(original_address: "#{l[:location_title]}, #{l[:place]}")
 
       when :address
         @location = permit.locations.create(original_address: addr[:address])
@@ -57,7 +58,7 @@ class ParseAddressService
         end
 
       else
-        raise Exception.new("Unexpected address thing happened... #{address.inspect}..")
+        raise Exception.new("Unexpected address thing happened... #{@location.inspect}..")
       end
     rescue Exception => e
       debugger

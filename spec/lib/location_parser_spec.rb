@@ -183,6 +183,13 @@ RSpec.describe LocationParser, type: :lib do
         end
       end
 
+      context 'location edge cases' do
+        it 'should match as a fragment' do
+          failing_sample = 'Brooklyn Bridge: Brooklyn Bridge Pedestrian: 1 ,'
+          expect(parser.fragment).to parse(failing_sample, trace: true)
+        end
+      end
+
       context 'intersections' do
         let(:orig) { location_samples['streets_and_intersections_only']['original'] }
 

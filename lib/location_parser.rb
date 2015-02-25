@@ -29,21 +29,23 @@ class LocationParser < Parslet::Parser
   rule(:not_space) { match['[^\s]'] }
 
   # delimiter literals
-  #rule(:street_delimiter) { (between | the_and) >> space? }
   rule(:colon_delimiter) { colon >> colon? >> space? }
   rule(:comma_delimiter) { space? >> (comma >> space?) | (eof | colon) }
 
   # streets
   rule(:street)       { (letter.repeat(1) >> space?).repeat(1) }
   rule(:street_upper) { (upper_letter.repeat(1) >> space?).repeat(1) }
-  # rule(:street_word)  { letter.repeat(1).as(:word) >> space? }
 
   # address types
   rule(:plain_street) { street >> comma_delimiter }
   rule(:missing_part) { comma >> space? }
 
-  rule(:location)     { street.as(:title) >> colon_delimiter >> street.as(:place) >> colon? >> comma_delimiter }
-  # rule(:intersection) { (street_delimiter | street_word).repeat(1) >> comma_delimiter }
+  rule(:location)     { street.as(:title) >>
+                        colon_delimiter >>
+                        street.as(:place) >>
+                        colon? >>
+                        not_comma.repeat(0) >>
+                        comma_delimiter }
 
   rule(:intersection) { street_upper.as(:place) >>
                         between >>
@@ -53,9 +55,9 @@ class LocationParser < Parslet::Parser
                         comma_delimiter }
 
   # structure
-  rule(:fragment) { location.as(:location) | 
-                    intersection.as(:intersection) | 
-                    plain_street.as(:street) | 
+  rule(:fragment) { location.as(:location) |
+                    intersection.as(:intersection) |
+                    plain_street.as(:street) |
                     missing_part.as(:missing) }
 
   rule(:shoot_locations) { fragment.repeat(1) }

@@ -12,6 +12,6 @@ class MapType < ActiveRecord::Base
   private
   def apply_address
     return if original_address.nil?
-    self.address = Address.find_by(original: original_address).first_or_create
+    self.address = Address.where(original: original_address).first_or_create
   end
 end

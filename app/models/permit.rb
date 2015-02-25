@@ -3,7 +3,9 @@ class Permit < ActiveRecord::Base
 
   belongs_to :project
 
-  has_many :locations
+  has_many :map_types
+
+  has_many :locations, dependent: :destroy
   has_many :intersections, through: :locations
 
   # has_many :addresses, through: :locations
@@ -44,7 +46,7 @@ class Permit < ActiveRecord::Base
   end
 
   def parse_location
-    parsed = LocationParser.new.parse(original_location_as_paragraph)
+    parsed = LocationParser.new.parse(original_location)
     LocationTransform.new.apply(parsed, permit: self)
   end
 
@@ -60,10 +62,13 @@ class Permit < ActiveRecord::Base
     addr_zip  = (zips.size == 1 ? "NY #{zips.first}" : "NY")
     addr_boro = (boro.nil? ? "New York" : boro)
 
+    # clean string, remove commas and trailing spaces
+    str = str.to_s.gsub(',', '').strip
+
     if kind == :intersection
-      "#{format_address(str.to_s.strip, true)}, #{addr_boro}, #{addr_zip}"
+      "#{format_address(str, true)}, #{addr_boro}, #{addr_zip}"
     else
-      "#{format_address(str.to_s.strip)}, #{addr_boro}, #{addr_zip}"
+      "#{format_address(str)}, #{addr_boro}, #{addr_zip}"
     end
   end
 

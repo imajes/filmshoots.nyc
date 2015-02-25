@@ -7,7 +7,6 @@ class ImportPermitService
   end
 
   def initialize(new_permit)
-    debugger
     # [:event_id, :project_title, :event_name, :event_type, :event_start_date, :event_end_date, :entered_on,
     # :location, :zip, :boro, :project_id]
 
