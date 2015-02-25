@@ -1,7 +1,6 @@
 class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
-
       t.integer :city_ref
       t.string :title
 

@@ -1,5 +1,4 @@
 class Data::PermitsController < ApplicationController
-
   def index
     @permits = Permit.joins([:project, :company]).includes([:project, :company])
 
@@ -10,6 +9,4 @@ class Data::PermitsController < ApplicationController
 
     @permits = @permits.order('event_start asc').page(params[:page].to_i).per(50)
   end
-
-
 end

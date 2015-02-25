@@ -17,9 +17,6 @@ FactoryGirl.define do
       zip 'NULL'
       boro 'NULL'
     end
-
   end
-
-
 end
 

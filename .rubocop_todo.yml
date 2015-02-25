@@ -85,35 +85,35 @@ Style/Documentation:
 # Offense count: 15
 # Cop supports --auto-correct.
 Style/EmptyLines:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/EmptyLinesAroundAccessModifier:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 49
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/EmptyLinesAroundBlockBody:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/EmptyLinesAroundClassBody:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 10
 # Cop supports --auto-correct.
 Style/EmptyLinesAroundMethodBody:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/EmptyLinesAroundModuleBody:
-  Enabled: false
+  Enabled: true
 
 # Offense count: 1
 # Configuration parameters: MinBodyLength.

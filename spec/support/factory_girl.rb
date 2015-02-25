@@ -3,7 +3,6 @@ RSpec.configure do |config|
 end
 
 module Permits::FactoryGirl
-
   def self.track_factories
     @factory_girl_results = {}
 
@@ -15,7 +14,6 @@ module Permits::FactoryGirl
       @factory_girl_results[factory_name][strategy_name] ||= 0
       @factory_girl_results[factory_name][strategy_name] += 1
     end
-
   end
 
   def self.print_statistics
@@ -33,5 +31,4 @@ module Permits::FactoryGirl
 
     puts table
   end
-
 end

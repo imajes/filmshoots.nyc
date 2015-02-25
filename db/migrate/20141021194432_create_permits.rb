@@ -1,7 +1,6 @@
 class CreatePermits < ActiveRecord::Migration
   def change
     create_table :permits do |t|
-
       t.integer    :event_ref
       t.references :project
       t.string     :event_name

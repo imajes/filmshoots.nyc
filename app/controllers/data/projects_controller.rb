@@ -1,7 +1,5 @@
 class Data::ProjectsController < ApplicationController
-
   def index
-
     @projects = Project.joins([:company, :category]).includes([:company, :category])
 
     if params[:company_id].present?
@@ -15,7 +13,5 @@ class Data::ProjectsController < ApplicationController
     end
 
     @projects = @projects.page(params[:page].to_i)
-
   end
-
 end

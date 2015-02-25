@@ -17,6 +17,5 @@ FactoryGirl.define do
     trait :llc do
       name 'Warner Brothers Entertainment LLC'
     end
-
   end
 end

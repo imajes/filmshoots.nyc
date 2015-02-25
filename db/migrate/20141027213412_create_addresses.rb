@@ -19,6 +19,5 @@ class CreateAddresses < ActiveRecord::Migration
     add_index :addresses, :latitude
     add_index :addresses, :longitude
     add_index :addresses, :neighborhood
-
   end
 end

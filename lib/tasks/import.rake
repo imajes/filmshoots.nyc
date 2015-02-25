@@ -2,10 +2,8 @@ require 'csv'
 STDOUT.sync = true
 
 namespace :import do
-
   desc 'import projects list...'
   task :projects => :environment do
-
     size = 1
 
     CSV.foreach(Rails.root.join('db/projects.csv')) do |project|
@@ -25,7 +23,6 @@ namespace :import do
 
   desc 'import permits...'
   task :permits => :environment do
-
     size = 1
 
     if Project.count.zero?

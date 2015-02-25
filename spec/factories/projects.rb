@@ -5,7 +5,6 @@ FactoryGirl.define do
 
     company  {Company.first || FactoryGirl.create(:company) }
     category {Category.first || FactoryGirl.create(:category) }
-
   end
 end
 

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
-
   before do
     @location = FactoryGirl.create(:location)
   end
@@ -28,6 +27,5 @@ RSpec.describe Location, type: :model do
     it 'should have a depth of 1' do
       expect(subject.depth).to eq(1)
     end
-
   end
 end

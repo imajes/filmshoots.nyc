@@ -3,15 +3,12 @@ require 'location_parser'
 require 'parslet/rig/rspec'
 
 RSpec.describe LocationParser, type: :lib do
-
   let(:parser) { LocationParser.new }
 
   location_samples = YAML.load_file(Rails.root.join('spec/locations.yml'))
 
   context 'parser rules' do
-
     context 'simple literals' do
-
       it ':colon' do
         expect(parser.colon).to parse(':')
       end
@@ -43,7 +40,6 @@ RSpec.describe LocationParser, type: :lib do
         expect(parser.eof).to parse('')
         expect(parser.eof).to_not parse('a')
       end
-
     end
 
     context 'word matches' do
@@ -59,7 +55,6 @@ RSpec.describe LocationParser, type: :lib do
     end
 
     context 'matched literals' do
-
       it ':letter' do
         expect(parser.letter).to parse('a')
         expect(parser.letter).to parse('1')
@@ -91,11 +86,9 @@ RSpec.describe LocationParser, type: :lib do
         expect(parser.not_space).to parse(',')
         expect(parser.not_space).not_to parse(' ')
       end
-
     end
 
     context 'delimiter literals' do
-
       it ':colon_delimiter' do
         expect(parser.colon_delimiter).to parse(': ')
         expect(parser.colon_delimiter).to parse(':')
@@ -119,11 +112,9 @@ RSpec.describe LocationParser, type: :lib do
         expect(parser.comma_delimiter).to_not parse(' ')
         expect(parser.comma_delimiter).to_not parse('a')
       end
-
     end
 
     context 'street structures' do
-
       context ':street' do
         it 'should parse normal streets' do
           expect(parser.street).to parse('1 Monitor Street')
@@ -149,7 +140,6 @@ RSpec.describe LocationParser, type: :lib do
           expect(parser.street_upper).not_to parse('Monsignor McGolrick Park')
           expect(parser.street_upper).not_to parse('1 MONITOR st')
         end
-
       end
     end
 
@@ -247,27 +237,20 @@ RSpec.describe LocationParser, type: :lib do
             expect(parser.intersection).not_to parse(addr, trace: true)
           end
         end
-
       end
-
     end
-
   end
 
   RSpec.shared_examples '#parse' do |test, idx|
-
     it "should parse experiment '#{idx}:#{test[0..50]}' accurately" do
       expect(parser).to parse(test, trace: true)
     end
   end
 
   context 'parser stress test' do
-
     location_samples[:experiments].each_with_index do |loc, idx|
       it_behaves_like '#parse', loc, idx
     end
-
   end
-
 end
 

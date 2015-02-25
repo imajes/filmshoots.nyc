@@ -1,5 +1,4 @@
 class Project < ActiveRecord::Base
-
   searchkick suggest: [:title]
 
   belongs_to :company
@@ -14,7 +13,6 @@ class Project < ActiveRecord::Base
   end
 
   def self.import(ref, title, company_name, category)
-
     company = Company.import(company_name)
     category = Category.where(name: category).first_or_create!
 
@@ -25,5 +23,4 @@ class Project < ActiveRecord::Base
   def all_locations
     permits.map(&:locations).flatten
   end
-
 end

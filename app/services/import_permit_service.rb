@@ -1,5 +1,4 @@
 class ImportPermitService
-
   attr_reader :attrs, :item
 
   def self.run!(item)
@@ -22,7 +21,6 @@ class ImportPermitService
               event_end:         Time.strptime(item[:event_end_date], '%m/%d/%y %H:%M %p'),
               entered_on:        Time.strptime(item[:entered_on], '%m/%d/%y %H:%M %p')
     }
-
   end
 
   def perform!
@@ -34,5 +32,4 @@ class ImportPermitService
     # decipher addresses...
     ParseAddressService.run!(permit)
   end
-
 end

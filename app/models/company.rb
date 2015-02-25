@@ -1,5 +1,4 @@
 class Company < ActiveRecord::Base
-
   searchkick suggest: [:name]
 
   has_many :projects
@@ -16,7 +15,6 @@ class Company < ActiveRecord::Base
     self[:original_names] = JSON.dump(to_save)
   end
 
-
   def search_data
     {
       name: name,
@@ -24,7 +22,6 @@ class Company < ActiveRecord::Base
       project_count: projects.size
     }
   end
-
 
   def self.import(name)
     orig = name.dup.strip
@@ -42,5 +39,4 @@ class Company < ActiveRecord::Base
 
     company
   end
-
 end

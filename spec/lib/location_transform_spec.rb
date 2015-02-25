@@ -4,7 +4,6 @@ require 'location_transform'
 require 'parslet/rig/rspec'
 
 RSpec.describe LocationTransform, type: :lib do
-
   let(:permit)    { FactoryGirl.build_stubbed(:permit, :complete_location) }
   let(:parser)    { LocationParser.new }
   let(:transform) { LocationTransform.new }
@@ -12,7 +11,6 @@ RSpec.describe LocationTransform, type: :lib do
   location_samples = YAML.load_file(Rails.root.join('spec/locations.yml'))
 
   context 'a typical location' do
-
     before do
       @parsed = parser.parse(permit.original_location)
       @transformed = transform.apply(@parsed, permit: permit)
@@ -21,7 +19,6 @@ RSpec.describe LocationTransform, type: :lib do
     it 'should transform a typical address' do
       expect { transform.apply(@parsed, permit: permit) }.not_to raise_error
     end
-
   end
 
   context 'a location' do
@@ -96,5 +93,4 @@ RSpec.describe LocationTransform, type: :lib do
       end
     end
   end
-
 end

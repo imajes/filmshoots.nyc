@@ -8,7 +8,6 @@ rescue LoadError
 end
 
 class LocationParser < Parslet::Parser
-
   # simple literals
   rule(:colon)   { str(':') }
   rule(:colon?)   { colon.maybe }
@@ -63,6 +62,5 @@ class LocationParser < Parslet::Parser
   rule(:shoot_locations) { fragment.repeat(1) }
 
   root :shoot_locations
-
 end
 

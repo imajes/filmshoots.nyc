@@ -1,5 +1,4 @@
 class Address < ActiveRecord::Base
-
   has_many :map_types
 
   before_save :geocode_address
@@ -22,6 +21,4 @@ class Address < ActiveRecord::Base
       self.data         = geo.data.to_json
     end
   end
-
-
 end

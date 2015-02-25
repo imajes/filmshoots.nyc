@@ -30,7 +30,6 @@ class Permit < ActiveRecord::Base
 
   def original_location_as_paragraph
     original_location.gsub(/\s+/, ' ').split(',').map do |line|
-
       line.strip!
 
       if line =~ /\:/
@@ -41,7 +40,6 @@ class Permit < ActiveRecord::Base
       else
         line = line
       end
-
     end.join("\n")
   end
 
@@ -50,7 +48,6 @@ class Permit < ActiveRecord::Base
     parsed = LocationParser.new.parse(original_location)
     LocationTransform.new.apply(parsed, permit: self)
   end
-
 
   def google_intersection(street, cross)
     street = clean_street(street, :intersection)
@@ -93,5 +90,4 @@ class Permit < ActiveRecord::Base
     self.zip  = nil if zip  == 'NULL'
     self.boro = nil if boro == 'NULL'
   end
-
 end

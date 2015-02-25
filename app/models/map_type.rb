@@ -1,5 +1,4 @@
 class MapType < ActiveRecord::Base
-
   belongs_to :permit
   belongs_to :address
 
@@ -10,6 +9,7 @@ class MapType < ActiveRecord::Base
   before_save :apply_address
 
   private
+
   def apply_address
     return if original_address.nil?
     self.address = Address.where(original: original_address).first_or_create

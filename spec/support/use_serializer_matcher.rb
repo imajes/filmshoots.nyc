@@ -1,5 +1,4 @@
 RSpec::Matchers.define :use_serializer do
-
   match do
     serializer_header == expected.to_s
   end
@@ -11,7 +10,6 @@ RSpec::Matchers.define :use_serializer do
   failure_message_when_negated do
     "Expected that #{serializer_header} would not be #{expected}"
   end
-
 end
 
 def serializer_header

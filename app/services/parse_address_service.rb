@@ -4,7 +4,6 @@
 # the address parsing service.
 
 class ParseAddressService
-
   attr_accessor :parse_log, :permit, :force
 
   def self.run!(item, force=nil)
@@ -65,7 +64,6 @@ class ParseAddressService
     end
   end
 
-
   def parse_log
     @parse_log ||= Logger.new(Rails.root.join('log/parse.log'))
   end
@@ -79,7 +77,5 @@ class ParseAddressService
       parse_log.warn msg
       return nil
     end
-
   end
-
 end
