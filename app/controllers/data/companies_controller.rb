@@ -8,7 +8,7 @@ class Data::CompaniesController < ApplicationController
       @companies = Company.all
     end
 
-    @companies = @companies.order("name asc").page(params[:page].to_i)
+    @companies = @companies.order('name asc').page(params[:page].to_i)
 
   end
 

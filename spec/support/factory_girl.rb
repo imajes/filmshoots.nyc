@@ -7,7 +7,7 @@ module Permits::FactoryGirl
   def self.track_factories
     @factory_girl_results = {}
 
-    ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+    ActiveSupport::Notifications.subscribe('factory_girl.run_factory') do |name, start, finish, id, payload|
       # puts "#{Epixcms::Movies::Movie.count} - #{payload[:name]}" if payload[:strategy] == :create
       factory_name = payload[:name]
       strategy_name = payload[:strategy]

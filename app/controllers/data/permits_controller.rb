@@ -8,7 +8,7 @@ class Data::PermitsController < ApplicationController
       @permits = @project.permits
     end
 
-    @permits = @permits.order("event_start asc").page(params[:page].to_i).per(50)
+    @permits = @permits.order('event_start asc').page(params[:page].to_i).per(50)
   end
 
 

@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
   validates :city_ref, uniqueness: true, presence: true
 
   def self.all_categories
-    select("category").uniq.map(&:category).sort
+    select('category').uniq.map(&:category).sort
   end
 
   def self.import(ref, title, company_name, category)

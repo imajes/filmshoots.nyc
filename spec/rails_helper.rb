@@ -8,22 +8,23 @@ if ENV['COVERAGE']
   SimpleCov.start do
     add_filter '/.permits/'
     add_filter '/spec/support/'
+    add_filter '/db/*.csv'
     add_filter 'config/initializers/json_formatting.rb'
     add_filter 'config/initializers/console.rb'
   end
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 #
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
 
 # shared contexts and groups to behave like
-Dir[Rails.root.join("spec/shared/**/*.rb")].each {|f| require f}
+Dir[Rails.root.join('spec/shared/**/*.rb')].each {|f| require f}
 #
 # Add additional requires below this line. Rails is not loaded until this point!
 #

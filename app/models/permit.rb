@@ -20,24 +20,24 @@ class Permit < ActiveRecord::Base
   end
 
   def zips
-    zip.to_s.split(",")
+    zip.to_s.split(',')
   end
 
   def original_location
     # clean the extra whitespace
-    attributes['original_location'].gsub(/\s+/, " ") if attributes['original_location']
+    attributes['original_location'].gsub(/\s+/, ' ') if attributes['original_location']
   end
 
   def original_location_as_paragraph
-    original_location.gsub(/\s+/, " ").split(",").map do |line|
+    original_location.gsub(/\s+/, ' ').split(',').map do |line|
 
       line.strip!
 
       if line =~ /\:/
         line = "\n#{line}"
       elsif line =~ /between/
-        line = "\t#{line}".gsub("&", "_and_")
-        line = line.gsub(" and ", " & ").gsub(" between ", " <> ").gsub("_and_", 'and')
+        line = "\t#{line}".gsub('&', '_and_')
+        line = line.gsub(' and ', ' & ').gsub(' between ', ' <> ').gsub('_and_', 'and')
       else
         line = line
       end
@@ -60,8 +60,8 @@ class Permit < ActiveRecord::Base
   end
 
   def clean_street(str, kind=:any)
-    addr_zip  = (zips.size == 1 ? "NY #{zips.first}" : "NY")
-    addr_boro = (boro.nil? ? "New York" : boro)
+    addr_zip  = (zips.size == 1 ? "NY #{zips.first}" : 'NY')
+    addr_boro = (boro.nil? ? 'New York' : boro)
 
     # clean string, remove commas and trailing spaces
     str = str.to_s.gsub(',', '').strip
@@ -90,8 +90,8 @@ class Permit < ActiveRecord::Base
   private
 
   def trim_nulls
-    self.zip  = nil if zip  == "NULL"
-    self.boro = nil if boro == "NULL"
+    self.zip  = nil if zip  == 'NULL'
+    self.boro = nil if boro == 'NULL'
   end
 
 end

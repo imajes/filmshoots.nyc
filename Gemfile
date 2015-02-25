@@ -40,7 +40,7 @@ gem 'jquery-rails'
 # UI INTEGRATIONS
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 
 # ASSET/UI
 gem 'therubyracer', require: false
@@ -64,11 +64,13 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
   gem 'foreman'
-  gem "letter_opener"
+  gem 'letter_opener'
 end
 
 group :test, :development do
-  gem "quiet_assets"
+  gem 'rubocop'
+  gem 'simplecov', require: false
+  gem 'quiet_assets'
   gem 'terminal-table'
   gem 'pry'
   gem 'pry-rails'
@@ -76,14 +78,14 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem "awesome_print"
-  gem "rspec-rails"
+  gem 'awesome_print'
+  gem 'rspec-rails'
   gem 'fuubar'
-  gem "timecop"
-  gem "factory_girl"
-  gem "factory_girl_rails"
-  gem "forgery"
-  gem "database_cleaner"
+  gem 'timecop'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'forgery'
+  gem 'database_cleaner'
   gem 'byebug'
   gem 'guard'
   gem 'guard-rspec'
@@ -96,6 +98,6 @@ group :test, :development do
 end
 
 group :test do
-  gem "vcr"
-  gem "webmock"
+  gem 'vcr'
+  gem 'webmock'
 end

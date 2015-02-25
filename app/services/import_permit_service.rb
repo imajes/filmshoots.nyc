@@ -18,9 +18,9 @@ class ImportPermitService
               boro:              item[:boro],
               original_location: item[:location],
               zip:               item[:zip].gsub(/,$/, ''),
-              event_start:       Time.strptime(item[:event_start_date], "%m/%d/%y %H:%M %p"),
-              event_end:         Time.strptime(item[:event_end_date], "%m/%d/%y %H:%M %p"),
-              entered_on:        Time.strptime(item[:entered_on], "%m/%d/%y %H:%M %p")
+              event_start:       Time.strptime(item[:event_start_date], '%m/%d/%y %H:%M %p'),
+              event_end:         Time.strptime(item[:event_end_date], '%m/%d/%y %H:%M %p'),
+              entered_on:        Time.strptime(item[:entered_on], '%m/%d/%y %H:%M %p')
     }
 
   end

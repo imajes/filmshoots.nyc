@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
 
-  root "data/projects#index"
+  root 'data/projects#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

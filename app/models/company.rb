@@ -3,10 +3,10 @@ class Company < ActiveRecord::Base
   searchkick suggest: [:name]
 
   has_many :projects
-  has_many :categories, -> { distinct("categories.name") }, through: :projects
+  has_many :categories, -> { distinct('categories.name') }, through: :projects
 
   def original_names
-    JSON.parse(attributes['original_names'] || "[]")
+    JSON.parse(attributes['original_names'] || '[]')
   end
 
   def original_names= new_name

@@ -5,9 +5,9 @@ class Data::ProjectsController < ApplicationController
     @projects = Project.joins([:company, :category]).includes([:company, :category])
 
     if params[:company_id].present?
-      @projects = @projects.where(company_id: params[:company_id]).order("title asc")
+      @projects = @projects.where(company_id: params[:company_id]).order('title asc')
     else
-      @projects = @projects.order("companies.name asc")
+      @projects = @projects.order('companies.name asc')
     end
 
     if params[:category_id].present?

@@ -22,3 +22,4 @@ vendor/Dashgum
 
 /db/*.pgdump
 .guard_result
+coverage/

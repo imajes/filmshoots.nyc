@@ -1,0 +1,7 @@
+AllCops:
+  Exclude:
+    - 'db/*.csv'
+    - '.permits/**/*'
+inherit_from:
+  - .rubocop_todo.yml
+
