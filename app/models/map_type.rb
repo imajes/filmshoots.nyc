@@ -8,6 +8,15 @@ class MapType < ActiveRecord::Base
 
   before_save :apply_address
 
+  def readable
+    x = if address.present?
+      address.geocoded? ? "#{address.formatted}" : "#{address.original}"
+    else
+      ' --- Address Missing --- '
+    end
+    "> #{self.class}: #{x}\n#{children.map(&:readable).join("   >")}"
+  end
+
   private
 
   def apply_address

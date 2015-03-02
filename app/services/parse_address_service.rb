@@ -30,6 +30,9 @@ class ParseAddressService
   end
 
   def create_address(addr)
+
+    @location = permit.locations
+
     case addr.keys.first
     when :missing
       return
@@ -42,16 +45,10 @@ class ParseAddressService
       @location = permit.locations.create(original_address: addr[:address])
 
     when :intersection
-      l = addr[:intersection]
-
-      @location = permit.locations.build if @location.nil?
-
-      if l.key?(:street)
-        @location = permit.locations.create(parent_id: @location.id, original_address: l[:street])
-      end
+      street = @location.streets.create(original_address: addr[:intersection][:street])
 
       [:cross1, :cross2].each do |c|
-        @location.intersections.create(parent_id: @location.id, original_address: l[c])
+        street.intersections.create(original_address: addr[:intersections][c])
       end
 
     else

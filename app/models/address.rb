@@ -3,6 +3,10 @@ class Address < ActiveRecord::Base
 
   before_save :geocode_address
 
+  scope :geocoded, -> { where(geocoded: true) }
+  scope :not_geocoded, -> { where(geocoded: false) }
+
+
   private
 
   def geocode_address

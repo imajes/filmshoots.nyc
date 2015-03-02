@@ -43,6 +43,10 @@ class Permit < ActiveRecord::Base
     end.join("\n")
   end
 
+  def present_locations
+    locations.roots.map(&:readable).join("\n")
+  end
+
   def parse_location
     nil if original_location.blank?
     parsed = LocationParser.new.parse(original_location)
