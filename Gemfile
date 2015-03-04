@@ -4,6 +4,7 @@ ruby '2.2.0'
 
 # CORE DEPS
 gem 'rails', '~> 4.2.0'
+gem 'spring'
 gem 'puma'
 
 # EARLY TO APPLY TO OTHER GEMS
