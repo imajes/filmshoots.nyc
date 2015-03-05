@@ -23,20 +23,4 @@ class Company < ActiveRecord::Base
     }
   end
 
-  def self.import(name)
-    orig = name.dup.strip
-
-    name = name.downcase.strip
-
-    rejected_terms = /(,|)\s(llc|inc|ltd)(.|)/
-    name.gsub!(rejected_terms, '')
-
-    name = name.strip.titleize
-
-    company = where(name: name).first_or_create!
-    company.original_names = orig
-    company.save
-
-    company
-  end
 end

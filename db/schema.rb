@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223181650) do
+ActiveRecord::Schema.define(version: 20150304170501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150223181650) do
     t.text     "original_names"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "common_name"
   end
 
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree

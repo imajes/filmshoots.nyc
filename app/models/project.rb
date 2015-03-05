@@ -13,11 +13,11 @@ class Project < ActiveRecord::Base
   end
 
   def self.import(ref, title, company_name, category)
-    company = Company.import(company_name)
+    company_import = ImportCompanyService.new(company_name)
     category = Category.where(name: category).first_or_create!
 
     project = where(title: title, city_ref: ref).first_or_create!
-    project.update(city_ref: ref, title: title, company: company, category: category)
+    project.update(city_ref: ref, title: title, company: company_import.company, category: category)
   end
 
   def all_locations
