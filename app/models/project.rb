@@ -13,7 +13,7 @@ class Project < ActiveRecord::Base
   end
 
   def self.import(ref, title, company_name, category)
-    company_import = ImportCompanyService.new(company_name)
+    company_import = ImportCompanyService.new(company_name).process!
     category = Category.where(name: category).first_or_create!
 
     project = where(title: title, city_ref: ref).first_or_create!

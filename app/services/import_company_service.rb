@@ -1,12 +1,20 @@
 class ImportCompanyService
 
-  attr_reader :company
+  attr_reader :company, :proposed_name
 
   def initialize(name)
-    @company = Company.where(common_name: common_name(name)).first_or_create!
-    @company.name = name if company.name.blank?
-    @company.original_names = name
-    @company.save
+    @proposed_name = name
+  end
+
+  def process!
+    company.name = @proposed_name if company.name.blank?
+    company.original_names = @proposed_name
+    company.save
+  end
+
+  def company
+    @company ||=
+      Company.where(common_name: common_name(@proposed_name)).first_or_initialize
   end
 
   def common_name(name)
