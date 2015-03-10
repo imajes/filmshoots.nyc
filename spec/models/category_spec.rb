@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  let(:category) { FactoryGirl.build_stubbed(:category) }
+
+  it 'is valid' do
+    expect(category).to be_valid
+  end
+
 end

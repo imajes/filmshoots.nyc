@@ -15,7 +15,8 @@ class Permit < ActiveRecord::Base
   # sql/stat/grouping queries
 
   def self.issued_by_month
-    sql = "select count(*) as count, date_trunc('month', event_start) as month, date_trunc('year', event_start) as year from permits group by year, month order by year asc, month asc"
+    sql = "select count(*) as count, date_trunc('month', event_start) as month, date_trunc('year', event_start) as year 
+           from permits group by year, month order by year asc, month asc"
     find_by_sql(sql)
   end
 

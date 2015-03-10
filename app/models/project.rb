@@ -8,16 +8,16 @@ class Project < ActiveRecord::Base
 
   validates :city_ref, uniqueness: true, presence: true
 
-  def self.all_categories
-    select('category').uniq.map(&:category).sort
-  end
-
   def self.import(ref, title, company_name, category)
-    company_import = ImportCompanyService.new(company_name).process!
+    company_import = ImportCompanyService.new(company_name)
+    company_import.process!
     category = Category.where(name: category).first_or_create!
 
-    project = where(title: title, city_ref: ref).first_or_create!
-    project.update(city_ref: ref, title: title, company: company_import.company, category: category)
+    project = where(title: title, city_ref: ref).first_or_initialize
+    project.update(city_ref: ref, title: title, company: company_import.company, 
+                  category: category)
+
+    return project
   end
 
   def all_locations
