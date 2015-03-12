@@ -23,7 +23,7 @@ class LocationParser < Parslet::Parser
 
   # matched literals
   rule(:letter)    { match['^[\s:,]'] }
-  rule(:upper_letter) { match['A-Z0-9 '] }
+  rule(:upper_letter) { match['A-Z0-9\- '] }
   rule(:not_comma) { match['[^,]'] }
   rule(:not_space) { match['[^\s]'] }
 

@@ -68,6 +68,7 @@ RSpec.describe LocationParser, type: :lib do
         expect(parser.upper_letter).to parse('A')
         expect(parser.upper_letter).to parse('1')
         expect(parser.upper_letter).to parse(' ')
+        expect(parser.upper_letter).to parse('-')
         expect(parser.upper_letter).not_to parse('a')
         expect(parser.upper_letter).not_to parse(':')
         expect(parser.upper_letter).not_to parse(',')
@@ -140,6 +141,10 @@ RSpec.describe LocationParser, type: :lib do
           expect(parser.street_upper).not_to parse('Monsignor McGolrick Park')
           expect(parser.street_upper).not_to parse('1 MONITOR st')
         end
+
+        it 'should handle approved special characters' do
+          expect(parser.street_upper).to parse('34-21 REVIEW AVENUE')
+        end
       end
     end
 
@@ -163,22 +168,22 @@ RSpec.describe LocationParser, type: :lib do
         let(:loc_part) { 'Monsignor McGolrick Park: Monsignor McGolrick Park ,' }
 
         it 'should match as a location' do
-          expect(parser.location).to parse(loc_part, trace: true)
+          expect(parser.location).to parse(loc_part)
         end
 
         it 'should match as a fragment' do
-          expect(parser.fragment).to parse(loc_part, trace: true)
+          expect(parser.fragment).to parse(loc_part)
         end
 
         it 'should expand out the ast' do
-          expect(parser.shoot_locations).to parse(orig, trace: true)
+          expect(parser.shoot_locations).to parse(orig)
         end
       end
 
       context 'location edge cases' do
         it 'should match as a fragment' do
           failing_sample = 'Brooklyn Bridge: Brooklyn Bridge Pedestrian: 1 ,'
-          expect(parser.fragment).to parse(failing_sample, trace: true)
+          expect(parser.fragment).to parse(failing_sample)
         end
       end
 
@@ -188,53 +193,53 @@ RSpec.describe LocationParser, type: :lib do
         context 'which are valid' do
           it 'should deconstruct an intersection' do
             addr = 'NORTH HENRY STREET between GREENPOINT AVENUE and NORMAN AVENUE'
-            expect(parser.intersection).to parse(addr, trace: true)
+            expect(parser.intersection).to parse(addr)
           end
 
           it 'should deconstruct an intersection with comma' do
             addr = 'NORTH HENRY STREET between GREENPOINT AVENUE and NORMAN AVENUE, '
-            expect(parser.intersection).to parse(addr, trace: true)
+            expect(parser.intersection).to parse(addr)
           end
 
           it 'should recognize it as a fragment' do
             addr = 'NORTH HENRY STREET between GREENPOINT AVENUE and NORMAN AVENUE'
-            expect(parser.fragment).to parse(addr, trace: true)
+            expect(parser.fragment).to parse(addr)
           end
 
           it 'should recognize it as a fragment with comma' do
             addr = 'NORTH HENRY STREET between GREENPOINT AVENUE and NORMAN AVENUE, '
-            expect(parser.fragment).to parse(addr, trace: true)
+            expect(parser.fragment).to parse(addr)
           end
 
           it 'should expand out the ast' do
-            expect(parser.shoot_locations).to parse(orig, trace: true)
+            expect(parser.shoot_locations).to parse(orig)
           end
         end
 
         context 'which are invalid' do
           it 'should not parse an intersection missing between' do
             addr = 'NORTH HENRY STREET GREENPOINT AVENUE and NORMAN AVENUE'
-            expect(parser.intersection).not_to parse(addr, trace: true)
+            expect(parser.intersection).not_to parse(addr)
           end
 
           it 'should not parse an intersection missing and' do
             addr = 'NORTH HENRY STREET between GREENPOINT AVENUE NORMAN AVENUE'
-            expect(parser.intersection).not_to parse(addr, trace: true)
+            expect(parser.intersection).not_to parse(addr)
           end
 
           it 'should not parse an intersection missing between & and' do
             addr = 'NORTH HENRY STREET GREENPOINT AVENUE NORMAN AVENUE'
-            expect(parser.intersection).not_to parse(addr, trace: true)
+            expect(parser.intersection).not_to parse(addr)
           end
 
           it 'should not parse an intersection with & for and' do
             addr = 'NORTH HENRY STREET between GREENPOINT AVENUE & NORMAN AVENUE'
-            expect(parser.intersection).not_to parse(addr, trace: true)
+            expect(parser.intersection).not_to parse(addr)
           end
 
           it 'should not parse an intersection with unexpected joining words' do
             addr = 'NORTH HENRY STREET btwn GREENPOINT AVENUE & NORMAN AVENUE'
-            expect(parser.intersection).not_to parse(addr, trace: true)
+            expect(parser.intersection).not_to parse(addr)
           end
         end
       end
@@ -242,7 +247,7 @@ RSpec.describe LocationParser, type: :lib do
   end
 
   RSpec.shared_examples '#parse' do |test, idx|
-    it "should parse experiment '#{idx}:#{test[0..50]}' accurately" do
+    it "should parse experiment '#{idx}: #{test[0..50]}...' accurately" do
       expect(parser).to parse(test, trace: true)
     end
   end
