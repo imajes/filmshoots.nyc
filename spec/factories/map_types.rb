@@ -1,4 +1,15 @@
 FactoryGirl.define do
-  factory :map_type do
+
+  sequence :title do |n|
+    "Shoot Place #{n}"
   end
+
+  factory :map_type do
+    title
+    association :address
+  end
+
+  factory :intersection, class: Intersection, parent: :map_type
+  factory :street,       class: Street,       parent: :map_type
+  factory :cross_street, class: CrossStreet,  parent: :map_type
 end

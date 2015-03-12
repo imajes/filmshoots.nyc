@@ -1,5 +1,6 @@
 class Intersection < MapType
-  belongs_to :street, foreign_key: :parent_id
+  has_one  :street, foreign_key: :parent_id
+  has_many :cross_streets, foreign_key: :parent_id
 
   # def readable
   #   "  >> #{super}"

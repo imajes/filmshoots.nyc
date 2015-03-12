@@ -5,10 +5,10 @@ class Permit < ActiveRecord::Base
 
   has_many :map_types
 
-  has_many :locations, dependent: :destroy
-  has_many :intersections, through: :locations
+  has_many :locations,     dependent: :destroy
+  has_many :intersections, dependent: :destroy
 
-  # has_many :addresses, through: :locations
+  # has_many :addresses, through: :map_types
 
   before_save :trim_nulls
 
@@ -21,7 +21,7 @@ class Permit < ActiveRecord::Base
   end
 
   def zips
-    zip.to_s.split(',')
+    zip.to_s.split(',').map(&:strip)
   end
 
   def original_location
