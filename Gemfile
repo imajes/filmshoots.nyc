@@ -14,6 +14,7 @@ gem 'dotenv-rails'
 gem 'pg'
 gem 'awesome_nested_set'
 gem 'active_model_serializers'
+gem 'stream_sampler'
 
 # SEARCH
 gem 'searchkick'

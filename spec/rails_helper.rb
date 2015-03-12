@@ -1,6 +1,6 @@
 require 'database_cleaner'
 require 'byebug'
-# require 'vcr'
+require 'vcr'
 # require 'timecop'
 
 if ENV['COVERAGE']
