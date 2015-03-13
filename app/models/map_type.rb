@@ -2,6 +2,8 @@ class MapType < ActiveRecord::Base
   belongs_to :permit
   belongs_to :address
 
+  scope :with_address, -> { joins(:address).includes(:address) }
+
   acts_as_nested_set
 
   attr_accessor :original_address
@@ -14,7 +16,7 @@ class MapType < ActiveRecord::Base
     else
       ' --- Address Missing --- '
     end
-    "> #{self.class}: #{x}\n#{children.map(&:readable).join("   >")}"
+    "> #{self.class}: #{x}\n#{children.with_address.map(&:readable).join("   >")}"
   end
 
   private

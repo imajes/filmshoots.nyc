@@ -30,7 +30,6 @@ class ParseAddressService
   end
 
   def create_address(type, addr)
-
     case type
     when :missing
       return false
@@ -50,10 +49,8 @@ class ParseAddressService
       end
 
     else
-      fail "Unexpected address thing happened... #{@location.inspect}.."
+      fail "Unexpected address thing happened... #{addr.inspect}.."
     end
-  rescue Exception => e
-    debugger
   end
 
   def create_location(name, addr)

@@ -1,7 +1,7 @@
 require 'database_cleaner'
 require 'byebug'
 require 'vcr'
-# require 'timecop'
+require 'timecop'
 
 if ENV['COVERAGE']
   require 'simplecov'

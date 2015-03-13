@@ -51,6 +51,7 @@ RSpec.describe Permit, type: :model do
       expect(permit.original_location_as_paragraph).to eq(para)
     end
 
+
     context 'formatting addresses' do
       it 'normalizes a street with bldg number' do
         expect(permit.format_address('123 9 STREET')).to eq('123 9th STREET')

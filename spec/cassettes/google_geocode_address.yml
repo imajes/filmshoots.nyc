@@ -1,0 +1,124 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=370%20FORT%20WASHINGTON%20AVENUE,%20Manhattan,%20NY&key=AIzaSyBsVKsp640WcCA0uL9kw1jN6HOb_NIuOEs&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 13 Mar 2015 15:54:00 GMT
+      Expires:
+      - Sat, 14 Mar 2015 15:54:00 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 443:quic,p=0.5
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "370",
+                       "short_name" : "370",
+                       "types" : [ "street_number" ]
+                    },
+                    {
+                       "long_name" : "Fort Washington Avenue",
+                       "short_name" : "Fort Washington Ave",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Hudson Heights",
+                       "short_name" : "Hudson Heights",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality_level_1", "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10033",
+                       "short_name" : "10033",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "370 Fort Washington Avenue, New York, NY 10033, USA",
+                 "geometry" : {
+                    "location" : {
+                       "lat" : 40.8474549,
+                       "lng" : -73.939317
+                    },
+                    "location_type" : "ROOFTOP",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.84880388029149,
+                          "lng" : -73.93796801970849
+                       },
+                       "southwest" : {
+                          "lat" : 40.84610591970849,
+                          "lng" : -73.94066598029151
+                       }
+                    }
+                 },
+                 "place_id" : "ChIJlZ_TfZ_2wokRK_GFPR7mOG0",
+                 "types" : [ "street_address" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Fri, 13 Mar 2015 15:54:05 GMT
+recorded_with: VCR 2.9.3

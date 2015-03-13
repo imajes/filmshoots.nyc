@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312155919) do
+ActiveRecord::Schema.define(version: 20150313161236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150312155919) do
   end
 
   add_index "addresses", ["formatted"], name: "index_addresses_on_formatted", using: :btree
+  add_index "addresses", ["geocoded"], name: "index_addresses_on_geocoded", using: :btree
   add_index "addresses", ["latitude"], name: "index_addresses_on_latitude", using: :btree
   add_index "addresses", ["longitude"], name: "index_addresses_on_longitude", using: :btree
   add_index "addresses", ["neighborhood"], name: "index_addresses_on_neighborhood", using: :btree
@@ -40,6 +41,8 @@ ActiveRecord::Schema.define(version: 20150312155919) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -64,8 +67,10 @@ ActiveRecord::Schema.define(version: 20150312155919) do
     t.string   "title"
   end
 
+  add_index "map_types", ["address_id"], name: "index_map_types_on_address_id", using: :btree
   add_index "map_types", ["lft"], name: "index_map_types_on_lft", using: :btree
   add_index "map_types", ["parent_id"], name: "index_map_types_on_parent_id", using: :btree
+  add_index "map_types", ["permit_id"], name: "index_map_types_on_permit_id", using: :btree
   add_index "map_types", ["rgt"], name: "index_map_types_on_rgt", using: :btree
   add_index "map_types", ["type"], name: "index_map_types_on_type", using: :btree
 
