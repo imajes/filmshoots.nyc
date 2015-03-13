@@ -1,0 +1,260 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=Promenade%20Lower%20%E2%80%93%2079th%20-%2095th%20Streets,%20Manhattan,%20NY&key=AIzaSyBsVKsp640WcCA0uL9kw1jN6HOb_NIuOEs&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 13 Mar 2015 15:46:54 GMT
+      Expires:
+      - Sat, 14 Mar 2015 15:46:54 GMT
+      Cache-Control:
+      - public, max-age=86400
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 443:quic,p=0.5
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "results" : [
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "West 95th Street",
+                       "short_name" : "W 95th St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality_level_1", "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10025",
+                       "short_name" : "10025",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "West 95th Street, New York, NY 10025, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 40.7958265,
+                          "lng" : -73.9651903
+                       },
+                       "southwest" : {
+                          "lat" : 40.7910029,
+                          "lng" : -73.9786203
+                       }
+                    },
+                    "location" : {
+                       "lat" : 40.7939374,
+                       "lng" : -73.9721545
+                    },
+                    "location_type" : "GEOMETRIC_CENTER",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7958265,
+                          "lng" : -73.9651903
+                       },
+                       "southwest" : {
+                          "lat" : 40.7910029,
+                          "lng" : -73.9786203
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJHV9u-if2wokRtus40qszJnE",
+                 "types" : [ "route" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "East 95th Street",
+                       "short_name" : "E 95th St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Upper East Side",
+                       "short_name" : "UES",
+                       "types" : [ "neighborhood", "political" ]
+                    },
+                    {
+                       "long_name" : "Manhattan",
+                       "short_name" : "Manhattan",
+                       "types" : [ "sublocality_level_1", "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "locality", "political" ]
+                    },
+                    {
+                       "long_name" : "New York County",
+                       "short_name" : "New York County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    },
+                    {
+                       "long_name" : "10128",
+                       "short_name" : "10128",
+                       "types" : [ "postal_code" ]
+                    }
+                 ],
+                 "formatted_address" : "East 95th Street, New York, NY 10128, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 40.7872492,
+                          "lng" : -73.944329
+                       },
+                       "southwest" : {
+                          "lat" : 40.7822241,
+                          "lng" : -73.9562339
+                       }
+                    },
+                    "location" : {
+                       "lat" : 40.78451159999999,
+                       "lng" : -73.9498121
+                    },
+                    "location_type" : "GEOMETRIC_CENTER",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7872492,
+                          "lng" : -73.944329
+                       },
+                       "southwest" : {
+                          "lat" : 40.7822241,
+                          "lng" : -73.9562339
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJjzwM1KVYwokRPd4zcoeeptg",
+                 "types" : [ "route" ]
+              },
+              {
+                 "address_components" : [
+                    {
+                       "long_name" : "95th Street",
+                       "short_name" : "95th St",
+                       "types" : [ "route" ]
+                    },
+                    {
+                       "long_name" : "Queens",
+                       "short_name" : "Queens",
+                       "types" : [ "sublocality_level_1", "sublocality", "political" ]
+                    },
+                    {
+                       "long_name" : "Queens County",
+                       "short_name" : "Queens County",
+                       "types" : [ "administrative_area_level_2", "political" ]
+                    },
+                    {
+                       "long_name" : "New York",
+                       "short_name" : "NY",
+                       "types" : [ "administrative_area_level_1", "political" ]
+                    },
+                    {
+                       "long_name" : "United States",
+                       "short_name" : "US",
+                       "types" : [ "country", "political" ]
+                    }
+                 ],
+                 "formatted_address" : "95th Street, Queens, NY, USA",
+                 "geometry" : {
+                    "bounds" : {
+                       "northeast" : {
+                          "lat" : 40.7704638,
+                          "lng" : -73.873223
+                       },
+                       "southwest" : {
+                          "lat" : 40.7587099,
+                          "lng" : -73.8755795
+                       }
+                    },
+                    "location" : {
+                       "lat" : 40.7645607,
+                       "lng" : -73.87450749999999
+                    },
+                    "location_type" : "GEOMETRIC_CENTER",
+                    "viewport" : {
+                       "northeast" : {
+                          "lat" : 40.7704638,
+                          "lng" : -73.8730522697085
+                       },
+                       "southwest" : {
+                          "lat" : 40.7587099,
+                          "lng" : -73.8757502302915
+                       }
+                    }
+                 },
+                 "partial_match" : true,
+                 "place_id" : "ChIJYVb2wb1fwokR914YbNpyl4I",
+                 "types" : [ "route" ]
+              }
+           ],
+           "status" : "OK"
+        }
+    http_version: 
+  recorded_at: Fri, 13 Mar 2015 15:46:59 GMT
+recorded_with: VCR 2.9.3

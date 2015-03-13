@@ -24,18 +24,16 @@ class ParseAddressService
       return
     end
 
-    parsed_address.to_a.each { |addr| create_address(addr) }
+    parsed_address.to_a.each { |addr| create_address(addr.first, addr) }
 
     permit.save!
   end
 
-  def create_address(addr)
+  def create_address(type, addr)
 
-    @location = permit.locations
-
-    case addr.keys.first
+    case type
     when :missing
-      return
+      return false
     when :location
       l = addr[:location]
 
