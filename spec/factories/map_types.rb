@@ -11,5 +11,4 @@ FactoryGirl.define do
 
   factory :intersection, class: Intersection, parent: :map_type
   factory :street,       class: Street,       parent: :map_type
-  factory :cross_street, class: CrossStreet,  parent: :map_type
 end

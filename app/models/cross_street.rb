@@ -1,2 +1,0 @@
-class CrossStreet < Street
-end

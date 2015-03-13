@@ -39,16 +39,16 @@ class ParseAddressService
     when :location
       l = addr[:location]
 
-      @location = permit.locations.create(original_address: "#{l[:location_title]}, #{l[:place]}")
+      @location = create_location(l[:location_title], l[:place])
 
     when :address
-      @location = permit.locations.create(original_address: addr[:address])
+      @location = create_location(addr[:address], addr[:address])
 
     when :intersection
-      street = @location.streets.create(original_address: addr[:intersection][:street])
+      @intersection = permit.intersections.create(original_address: [:intersection][:street])
 
       [:cross1, :cross2].each do |c|
-        street.intersections.create(original_address: addr[:intersections][c])
+        @intersection.streets.create(original_address: addr[:intersections][c])
       end
 
     else
@@ -56,6 +56,10 @@ class ParseAddressService
     end
   rescue Exception => e
     debugger
+  end
+
+  def create_location(name, addr)
+    permit.locations.create(title: name, original_address: addr)
   end
 
   def parse_log
