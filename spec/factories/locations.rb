@@ -1,7 +1,5 @@
 FactoryGirl.define do
-  factory :location do
-    association :address, formatted: 'Monsignor Mcgolrick Park'
-
+  factory :location, class: Location, parent: :map_type do
     after(:build) do |loc|
       loc.intersections = [FactoryGirl.build(:intersection)]
     end

@@ -6,7 +6,10 @@ FactoryGirl.define do
 
   factory :map_type do
     title
-    association :address
+
+    after(:build) do |mt|
+      mt.address = Address.first || FactoryGirl.build(:address, original: '27 WALL STREET, Manhattan, NY, 10005')
+    end
   end
 
   factory :intersection, class: Intersection, parent: :map_type

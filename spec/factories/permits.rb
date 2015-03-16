@@ -13,6 +13,12 @@ FactoryGirl.define do
       boro               'Brooklyn'
     end
 
+    trait :with_associated_location do
+      after(:build) do |permit|
+        permit.locations = [FactoryGirl.build(:location)]
+      end
+    end
+
     trait :nulls do
       zip 'NULL'
       boro 'NULL'

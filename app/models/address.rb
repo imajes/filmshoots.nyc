@@ -1,13 +1,19 @@
 class Address < ActiveRecord::Base
   has_many :map_types
 
-  before_save :geocode_address
-
   scope :geocoded, -> { where(geocoded: true) }
   scope :not_geocoded, -> { where(geocoded: false) }
 
+  validates :original, uniqueness: { message: 'Address already exists!' }
+
+  before_validation :clean_original
+  before_save :geocode_address
 
   private
+
+  def clean_original
+    self.original.gsub!(/\s+/, ' ')
+  end
 
   def geocode_address
     return if geocoded?

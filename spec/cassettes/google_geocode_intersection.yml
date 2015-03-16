@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://maps.googleapis.com/maps/api/geocode/json?address=FORT%20WASHINGTON%20AVENUE,%20Manhattan,%20NY&key=AIzaSyBsVKsp640WcCA0uL9kw1jN6HOb_NIuOEs&language=en&sensor=false
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 13 Mar 2015 18:52:53 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Fri, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, must-revalidate
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - mafe
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      Alternate-Protocol:
+      - 443:quic,p=0.5
+      Accept-Ranges:
+      - none
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+           "error_message" : "This IP, site or mobile application is not authorized to use this API key.",
+           "results" : [],
+           "status" : "REQUEST_DENIED"
+        }
+    http_version: 
+  recorded_at: Fri, 13 Mar 2015 18:52:53 GMT
+recorded_with: VCR 2.9.3

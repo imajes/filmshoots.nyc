@@ -16,15 +16,15 @@ class ParseAddressService
   end
 
   def process!
-    return if permit.locations.any? && force.nil?
+    return false if permit.locations.any? && !force
 
     if permit.original_location.blank?
       msg = "Permit Failed: #{permit.id} missing location #{permit.project.try(:title)}"
       parse_log.warn msg
-      return
+      return false
     end
 
-    parsed_address.to_a.each { |addr| create_address(addr.first, addr) }
+    parsed_address.each { |addr| create_address(addr.first, addr) }
 
     permit.save!
   end
@@ -42,12 +42,14 @@ class ParseAddressService
       @location = create_location(addr[:address], addr[:address])
 
     when :intersection
-      @intersection = permit.intersections.create(original_address: [:intersection][:street])
+      l = addr[:intersection]
+      @intersection = permit.intersections.create(original_address: l[:street])
 
       [:cross1, :cross2].each do |c|
-        @intersection.streets.create(original_address: addr[:intersections][c])
+        @intersection.streets.create(original_address: l[c])
       end
 
+      return @intersection
     else
       fail "Unexpected address thing happened... #{addr.inspect}.."
     end
@@ -66,6 +68,6 @@ class ParseAddressService
   rescue Parslet::ParseFailed => e
     msg = "Parse Failed: #{permit.id} #{permit.project.try(:title)} - #{e.message}"
     parse_log.warn msg
-    return nil
+    return []
   end
 end
