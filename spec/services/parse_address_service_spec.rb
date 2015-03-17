@@ -2,21 +2,19 @@ require 'rails_helper'
 
 RSpec.describe ParseAddressService, type: :service do
 
-  before(:all) do
-    @permit = FactoryGirl.create(:permit, :complete_location)
-  end
-
-  after(:all) do
-    @permit.destroy
-  end
-
   before do
+    @permit = FactoryGirl.create(:permit, :complete_location)
     # prevent geocode, as it's not relevant here
     allow_any_instance_of(Address).to receive(:geocode_address).and_return(true)
     @service = described_class.new(@permit)
   end
 
   context 'initializing' do
+
+    it 'should run the whole stack' do
+      expect_any_instance_of(described_class).to receive(:process!).and_return(true)
+      described_class.run!(@permit)
+    end
 
     it 'should initialize the permit' do
       expect(@service.permit).to eq(@permit)
@@ -169,13 +167,26 @@ RSpec.describe ParseAddressService, type: :service do
           expect(@service.process!).to eq(false)
         end
       end
+
+      context 'valid location' do
+
+        subject { @service.process! }
+
+        it 'should save and update the permit' do
+          expect(@permit).to receive(:save!)
+          subject
+        end
+
+        it 'should present a human readable locations stack' do
+          subject
+          para = "> Location: Monsignor McGolrick Park, Brooklyn, NY\n\n> Location: 34-02 Starr Avenue, Brooklyn, NY\n\n> Intersection: REVIEW AVENUE, Brooklyn, NY\n> Street: REVIEW AVENUE, Brooklyn, NY at 35th STREET, Brooklyn, NY\n   >> Street: REVIEW AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: REVIEW AVENUE, Brooklyn, NY\n> Street: REVIEW AVENUE, Brooklyn, NY at 35th STREET, Brooklyn, NY\n   >> Street: REVIEW AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: STARR AVENUE, Brooklyn, NY\n> Street: STARR AVENUE, Brooklyn, NY at VAN DAM STREET, Brooklyn, NY\n   >> Street: STARR AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: NORTH HENRY STREET, Brooklyn, NY\n> Street: NORTH HENRY STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: NORTH HENRY STREET, Brooklyn, NY at NORMAN AVENUE, Brooklyn, NY\n\n> Intersection: RUSSELL STREET, Brooklyn, NY\n> Street: RUSSELL STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: RUSSELL STREET, Brooklyn, NY at DRIGGS AVENUE, Brooklyn, NY\n\n> Intersection: NASSAU AVENUE, Brooklyn, NY\n> Street: NASSAU AVENUE, Brooklyn, NY at HUMBOLDT STREET, Brooklyn, NY\n   >> Street: NASSAU AVENUE, Brooklyn, NY at RUSSELL STREET, Brooklyn, NY\n\n> Intersection: RUSSELL STREET, Brooklyn, NY\n> Street: RUSSELL STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: RUSSELL STREET, Brooklyn, NY at NORMAN AVENUE, Brooklyn, NY\n"
+
+          expect(@permit.present_locations).to eq(para)
+        end
+
+      end
     end
 
-
-    it 'should present a human readable locations stack' do
-      para = ""
-      expect(@permit.present_locations).to eq(para)
-    end
   end
 
 end

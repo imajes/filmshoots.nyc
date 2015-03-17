@@ -24,7 +24,7 @@ class ParseAddressService
       return false
     end
 
-    parsed_address.each { |addr| create_address(addr.first, addr) }
+    parsed_address.each { |addr| create_address(addr.keys.first, addr) }
 
     permit.save!
   end

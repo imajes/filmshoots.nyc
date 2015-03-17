@@ -45,7 +45,7 @@ class Permit < ActiveRecord::Base
   end
 
   def present_locations
-    locations.with_address.roots.map(&:readable).join("\n")
+    [locations.with_address.roots + intersections.with_address.roots].flatten.map(&:readable).join("\n")
   end
 
   def parse_location

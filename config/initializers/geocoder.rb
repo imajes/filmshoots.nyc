@@ -4,7 +4,7 @@ Geocoder.configure(
   # lookup: :bing,
   # api_key: 'AuxKs4V8KDMdett2IVmGdvTmoHtNdnkIBx_alUz3FcIUqQnpxkUsKtB0qp9tIMNS',
 
-  # https_proxy: 'http://quotaguard2415:d990210e1b3d@proxy.quotaguard.com:9292',
+  https_proxy: 'http://quotaguard2415:d990210e1b3d@proxy.quotaguard.com:9292',
   cache: Redis.new,
   timeout: 5,
   use_https: true
