@@ -2,7 +2,7 @@ class ImportPermitService
   attr_reader :attrs, :item
 
   def self.run!(item)
-    new(item).perform!
+    new(item).process!
   end
 
   def initialize(new_permit)
@@ -23,7 +23,7 @@ class ImportPermitService
     }
   end
 
-  def perform!
+  def process!
     permit = Permit.where(event_ref: item[:event_id].to_i).first_or_initialize
     permit.project = Project.where(city_ref: item[:project_id].to_i).first
     permit.assign_attributes(attrs)
