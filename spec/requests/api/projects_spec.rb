@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'API :: Companies', type: :request do
+RSpec.describe 'API :: Projects', type: :request do
 
   before(:all) do
     @company = FactoryGirl.create(:company)
@@ -15,37 +15,37 @@ RSpec.describe 'API :: Companies', type: :request do
 
   context 'GET #index' do
     before do
-      get_json '/api/companies'
+      get_json '/api/projects'
     end
 
     it 'should have a valid status' do
       expect(response).to be_success
     end
 
-    it 'responds with all the companies' do
-      expect(parsed_body.keys.first).to eq('companies')
+    it 'responds with all the projects' do
+      expect(parsed_body.keys.first).to eq('projects')
     end
 
     it 'should have the correct keys' do
-      expect(parsed_body['companies'].first.keys).to match_array(['id', 'name', 'alternate_names', 'projects'])
+      expect(parsed_body['projects'].first.keys).to match_array(['category', 'city_ref', 'id', 'permits_count', 'title'])
     end
   end
 
   context 'GET #index with category name' do
     before do
-      get_json '/api/companies', category_name: @project.category.name
+      get_json '/api/projects', category_name: @project.category.name
     end
 
     it 'should have a valid status' do
       expect(response).to be_success
     end
 
-    it 'responds with all the companies' do
-      expect(parsed_body.keys.first).to eq('companies')
+    it 'responds with all the projects' do
+      expect(parsed_body.keys.first).to eq('projects')
     end
 
     it 'should have the correct keys' do
-      expect(parsed_body['companies'].first.keys).to match_array(['id', 'name', 'alternate_names', 'projects'])
+      expect(parsed_body['projects'].first.keys).to match_array(['category', 'city_ref', 'id', 'permits_count', 'title'])
     end
   end
 end
