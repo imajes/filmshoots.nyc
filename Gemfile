@@ -24,14 +24,16 @@ gem 'parslet'
 gem 'geocoder'
 
 # QUEUE/CACHE
-gem 'sidekiq'
-gem 'sidekiq-retries'
+# gem 'sidekiq'
+# gem 'sidekiq-retries'
 gem 'redis-rails'
-gem 'sinatra', '>= 1.3.0', require: nil
+# gem 'sinatra', '>= 1.3.0', require: nil
 
 # JS/APP/UI
-gem 'turbolinks'
-gem 'jquery-turbolinks'
+gem 'oj'
+gem 'oj_mimic_json'
+# gem 'turbolinks'
+# gem 'jquery-turbolinks'
 
 # UI HELPERS
 gem 'sass-rails'

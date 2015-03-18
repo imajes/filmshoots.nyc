@@ -1,4 +1,7 @@
 class Data::CompaniesController < ApplicationController
+
+  respond_to :json
+
   def index
     if params[:category_id]
       @companies = Category.find(params[:category_id]).companies
@@ -6,6 +9,6 @@ class Data::CompaniesController < ApplicationController
       @companies = Company.all
     end
 
-    @companies = @companies.order('name asc').page(params[:page].to_i)
+    respond_with @companies.order('name asc').page(params[:page].to_i)
   end
 end
