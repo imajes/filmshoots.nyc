@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
-  namespace :data do
-    resources :projects, :permits
 
-    resources :companies, only: [:show, :index] do
-      resources :projects, only: [:show, :index] do
-        resources :permits, only: [:show, :index]
+  scope only: [:index, :show] do
+    namespace :api do
+      resources :companies, :projects, :permits
+    end
+
+    namespace :data do
+      resources :projects, :permits
+
+      resources :companies do
+        resources :projects do
+          resources :permits
+        end
       end
     end
   end

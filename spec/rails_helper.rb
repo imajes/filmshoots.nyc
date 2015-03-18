@@ -6,6 +6,7 @@ require 'timecop'
 if ENV['COVERAGE']
   require 'simplecov'
   SimpleCov.start do
+    add_filter '/app/controllers/data'
     add_filter '/.permits/'
     add_filter '/spec/support/'
     add_filter '/db/*.csv'
@@ -39,6 +40,8 @@ RSpec.configure do |config|
   # filter specs
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
+
+  config.include RequestHelpers, type: :request
 
   config.before(:suite) do
     # prep factory_run tracking

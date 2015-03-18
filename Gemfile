@@ -16,6 +16,7 @@ gem 'awesome_nested_set'
 gem 'active_model_serializers'
 gem 'stream_sampler'
 gem 'counter_culture'
+gem 'oat'
 
 # SEARCH
 gem 'searchkick'
