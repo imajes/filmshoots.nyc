@@ -40,6 +40,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.7)
+    after_commit_action (1.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
     arel (6.0.0)
     asset_sync (1.1.0)
       activemodel
@@ -83,6 +86,10 @@ GEM
     commonjs (0.2.7)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
+    counter_culture (0.1.32)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      after_commit_action (~> 1.0.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.4.1)
@@ -485,6 +492,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.2.0)
   byebug
   coffee-rails
+  counter_culture
   database_cleaner
   dotenv-rails
   factory_girl

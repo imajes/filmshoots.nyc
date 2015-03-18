@@ -9,6 +9,7 @@ class Data::CompaniesController < ApplicationController
       @companies = Company.all
     end
 
-    respond_with @companies.order('name asc').page(params[:page].to_i)
+    @companies = @companies.order('name asc').page(params[:page])
+    respond_with @companies
   end
 end

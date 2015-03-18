@@ -76,3 +76,18 @@ namespace :import do
     end
   end
 end
+
+
+namespace :data do
+  desc 'reset counters'
+  task reset_counters: :environment do
+    Permit.counter_culture_fix_counts
+    Project.counter_culture_fix_counts
+  end
+
+  desc 'reindex dab'
+  task reindex: :environment do
+    Project.reindex
+    Company.reindex
+  end
+end

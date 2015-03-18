@@ -4,6 +4,9 @@ class Project < ActiveRecord::Base
   belongs_to :company
   belongs_to :category
 
+  counter_culture :company
+  counter_culture :category
+
   has_many :permits
 
   validates :city_ref, uniqueness: true, presence: true

@@ -3,6 +3,8 @@ class Permit < ActiveRecord::Base
 
   belongs_to :project
 
+  counter_culture :project
+
   has_many :map_types
 
   has_many :locations,     dependent: :destroy
