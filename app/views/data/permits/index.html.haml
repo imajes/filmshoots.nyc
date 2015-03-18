@@ -27,7 +27,7 @@
               %td.numeric= permit.event_ref
               %td= permit.event_type
               %td== #{permit.locations.count} + #{permit.intersections.count}
-              %td== #{permit.locations.map(&:neighborhood).uniq.compact.join(", ")}, <strong>#{permit.boro}</strong>
+              %td== #{permit.locations.map { |loc| loc.address.neighborhood }.uniq.compact.join(", ")}, <strong>#{permit.boro}</strong>
               %td= permit.event_name
               %td= permit.event_start.in_time_zone("EST").strftime('%b %d, %Y at %H:%m %p')
               %td= permit.event_end.in_time_zone("EST").strftime('%b %d, %Y at %H:%m %p')

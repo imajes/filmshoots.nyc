@@ -1,6 +1,6 @@
 class Data::CompaniesController < ApplicationController
 
-  respond_to :json
+  respond_to :json, :html
 
   def index
     if params[:category_id]

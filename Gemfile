@@ -33,17 +33,17 @@ gem 'redis-rails'
 gem 'responders'
 gem 'oj'
 gem 'oj_mimic_json'
-# gem 'turbolinks'
-# gem 'jquery-turbolinks'
 
 # UI HELPERS
 gem 'sass-rails'
+gem 'less-rails'
 gem 'coffee-rails'
 gem 'haml-rails'
 gem 'jquery-rails'
 
 # UI INTEGRATIONS
 gem 'autoprefixer-rails'
+gem 'bootstrap-material-design'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'font-awesome-rails'
 

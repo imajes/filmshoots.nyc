@@ -1,8 +1,25 @@
-%header.header.black-bg
-  .sidebar-toggle-box
-    .fa.fa-bars.tooltips{"data-original-title" => "Toggle Navigation", "data-placement" => "right"}
-  .top-menu
-    %ul.nav.pull-right.top-menu
-      %li
-        %a.logout{:href => "login.html"} Logout
+%nav.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle.collapsed{data: {toggle: 'collapse', target: '#top-nav-menu'}}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand
+        Film Shoots
+        = yield :breadcrumb
+    #top-nav-menu.collapse.navbar-collapse
+      %ul.nav.navbar-nav.pull-right
+        %li
+          %a{href: root_path}
+            %span Data Home
+
+        %li
+          %a{href: data_companies_path}
+            %span Companies
+
+        %li.active
+          %a{href: data_projects_path}
+            %span Projects
 

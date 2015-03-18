@@ -1,30 +1,29 @@
 !!!
-%html{:lang => "en"}
+%html{:lang => 'en'}
   %head
-    %meta{:charset => "utf-8"}
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
+    %meta{:charset => 'utf-8'}
+    %meta{:content => 'width=device-width, initial-scale=1.0', :name => 'viewport'}
     %title Made in NY, Exploring Film Permits in NYC
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all'
     = csrf_meta_tags
     / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
     /[if lt IE 9]
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>
+      <script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>
   %body
-    %section#container
-      = render partial: 'top_header'
-      = render partial: 'sidebar'
-      %section#main-content
-        %section.wrapper
-          = yield
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry&key=AIzaSyDtHALS1P02i_Temq6eIkXfIvgxgT7Dx24"
+    = render partial: 'top_header'
+    %section#main-content.container
+      %section.wrapper
+        = yield
+  = javascript_include_tag 'application'
+  = javascript_include_tag 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry&key=AIzaSyDtHALS1P02i_Temq6eIkXfIvgxgT7Dx24'
 
-    :javascript
-      //custom select box
+  :javascript
+    $.material.init();
+    //custom select box
 
-      $(function(){
-        $('select.styled').customSelect();
-      });
+    //$(function(){
+    //  $('select.styled').customSelect();
+    //});
 
-    = yield :footer_js
+  = yield :footer_js

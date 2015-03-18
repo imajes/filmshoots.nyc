@@ -1,16 +1,23 @@
+- content_for :breadcrumb do
+  %i.fa.fa-angle-right
+    Projects
+
+.secondary-navbar
+  .container
+  .secondary-navbar-inner
+    %ul.inline
+      - Category.all.each do |cat|
+        =link_to data_projects_path(category_id: cat.id) do
+          %li.btn.btn-flat.btn-primary= cat.name.titleize
+
+
 .row.mt
   .col-lg-12
     .showback
       %h4
-        %i.fa.fa-angle-right
-        Projects Directory
 
       %p
         Filter by:
-        %ul.inline
-        - Category.all.each do |cat|
-          =link_to data_projects_path(category_id: cat.id) do
-            %li.btn.btn-primary= cat.name.titleize
 
       %table.table.table-bordered.table-striped.table-condensed
         %thead
