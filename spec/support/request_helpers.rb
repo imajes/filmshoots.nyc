@@ -4,7 +4,7 @@ module RequestHelpers
     JSON.parse(response.body)
   end
 
-  def json_get(path)
-    get path, format: :json
+  def get_json(path, opts={})
+    get(path, format: :json, **opts)
   end
 end

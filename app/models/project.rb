@@ -17,7 +17,7 @@ class Project < ActiveRecord::Base
     category = Category.where(name: category).first_or_create!
 
     project = where(title: title, city_ref: ref).first_or_initialize
-    project.update(city_ref: ref, title: title, company: company_import.company, 
+    project.update(city_ref: ref, title: title, company: company_import.company,
                   category: category)
 
     return project

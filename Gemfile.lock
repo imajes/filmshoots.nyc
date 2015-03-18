@@ -299,8 +299,6 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    oat (0.4.6)
-      activesupport
     oj (2.12.1)
     oj_mimic_json (1.0.1)
     parser (2.2.0.3)
@@ -515,7 +513,6 @@ DEPENDENCIES
   less-rails
   letter_opener
   newrelic_rpm
-  oat
   oj
   oj_mimic_json
   parslet
