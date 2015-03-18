@@ -51,27 +51,25 @@ RSpec.describe Permit, type: :model do
       expect(permit.original_location_as_paragraph).to eq(para)
     end
 
+    RSpec.shared_examples 'a formatted address' do |text|
+      it "normalizes #{text} with building number" do
+        expect(permit.format_address("123 9 #{text}")).to eq("123 9th #{text}")
+      end
+
+      it "normalizes #{text} without a building number" do
+        expect(permit.format_address("123 #{text}")).to eq("123rd #{text}")
+      end
+
+    end
 
     context 'formatting addresses' do
-      it 'normalizes a street with bldg number' do
-        expect(permit.format_address('123 9 STREET')).to eq('123 9th STREET')
-      end
 
-      it 'normalizes a street without bldg number' do
-        expect(permit.format_address('123 STREET')).to eq('123rd STREET')
-      end
-
-      it 'normalizes an avenue with bldg number' do
-        expect(permit.format_address('123 9 AVENUE')).to eq('123 9th AVENUE')
-      end
-
-      it 'normalizes an avenue without bldg number' do
-        expect(permit.format_address('123 AVE')).to eq('123rd AVE')
-      end
-
-      it 'ignores unexpected inputs' do
-        expect(permit.format_address('123 9 PLACE')).to eq('123 9 PLACE')
-      end
+      it_behaves_like 'a formatted address', 'STREET'
+      it_behaves_like 'a formatted address', 'PLACE'
+      it_behaves_like 'a formatted address', 'DRIVE'
+      it_behaves_like 'a formatted address', 'AVE'
+      it_behaves_like 'a formatted address', 'AVENUE'
+      it_behaves_like 'a formatted address', 'ROAD'
 
       it 'strips leading numbers when requested' do
         expect(permit.format_address('123 9 STREET', true)).to eq('9th STREET')

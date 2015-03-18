@@ -39,13 +39,39 @@ namespace :import do
     puts "\nDone importing #{size} permit records..."
   end
 
-  desc 'geocode addresses...'
-  task geocode: :environment do
+  desc 'remove address orphans...'
+  task address_orphans: :environment do
+
+    uniq_addr_ids = Address.pluck(:id)
+    uniq_map_type_addr_ids = MapType.select("distinct address_id").pluck(:address_id)
+
+    orphans = uniq_addr_ids - uniq_map_type_addr_ids
+
+    puts "\nThere are #{orphans.size} orphaned address records."
+  end
+
+  desc 'parse addresses...'
+  task address_parse: :environment do
     Permit.find_in_batches(batch_size: 100).each do |batch|
       batch.each do |o|
         next if o.locations.any?
         puts "Parsing #{o.id} - #{o.project.title}: #{o.event_name}..."
         ParseAddressService.new(o).process!
+      end
+    end
+  end
+
+  namespace :geocode do
+    desc 'geocode addresses...'
+    task locations: :environment do
+      Location.joins([:address, :permit]).where("addresses.geocoded = false").find_in_batches(batch_size: 100).each do |batch|
+        batch.each do |loc|
+          puts "Parsing #{loc.permit.id}|#{loc.id} - #{loc.permit.project.try(:title)}: #{loc.permit.event_name}...[#{loc.address.original}]\n\t"
+          loc.address.send(:geocode_address)
+          ap loc.address.changes
+          puts loc.address.save!
+          sleep(rand(1..6))
+        end
       end
     end
   end

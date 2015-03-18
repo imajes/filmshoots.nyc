@@ -15,7 +15,7 @@ class Permit < ActiveRecord::Base
   # sql/stat/grouping queries
 
   def self.issued_by_month
-    sql = "select count(*) as count, date_trunc('month', event_start) as month, date_trunc('year', event_start) as year 
+    sql = "select count(*) as count, date_trunc('month', event_start) as month, date_trunc('year', event_start) as year
            from permits group by year, month order by year asc, month asc"
     find_by_sql(sql)
   end
@@ -76,14 +76,11 @@ class Permit < ActiveRecord::Base
   end
 
   def format_address(str, strip_leading_num=false)
-    if /(?<st>[0-9]+) STREET/i =~ str
-      str.gsub!(/[0-9]+ STREET/i, "#{ordinalize(st)} STREET")
+    if /(?<st>[0-9]+) (?<type>(ROAD|PLACE|DRIVE|STREET|AVE))/i =~ str
+      str.gsub!(/[0-9]+ #{type}/i, "#{ordinalize(st)} #{type.upcase}")
     end
 
-    if /(?<ave>[0-9]+) AVE/i =~ str
-      str.gsub!(/[0-9]+ AVE/i, "#{ordinalize(ave)} AVE")
-    end
-
+    # removes leading place numbers
     str.gsub!(/^[0-9]+\s/, '') if strip_leading_num
 
     str
