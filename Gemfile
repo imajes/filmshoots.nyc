@@ -30,6 +30,7 @@ gem 'redis-rails'
 # gem 'sinatra', '>= 1.3.0', require: nil
 
 # JS/APP/UI
+gem 'responders'
 gem 'oj'
 gem 'oj_mimic_json'
 # gem 'turbolinks'
