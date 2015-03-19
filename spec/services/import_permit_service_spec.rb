@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe ImportPermitService, type: :service do
 
   before do
-    # prevent geocode, as it's not relevant here
-    allow_any_instance_of(Address).to receive(:geocode_address).and_return(true)
+    # # prevent geocode, as it's not relevant here
+    # allow_any_instance_of(Address).to receive(:geocode_address).and_return(true)
 
     @data = {
             "event_id" => "38871",

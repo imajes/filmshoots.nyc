@@ -4,8 +4,6 @@ RSpec.describe ParseAddressService, type: :service do
 
   before do
     @permit = FactoryGirl.create(:permit, :complete_location)
-    # prevent geocode, as it's not relevant here
-    allow_any_instance_of(Address).to receive(:geocode_address).and_return(true)
     @service = described_class.new(@permit)
   end
 

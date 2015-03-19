@@ -7,15 +7,9 @@ class Address < ActiveRecord::Base
   validates :original, uniqueness: { message: 'Address already exists!' }
 
   before_validation :clean_original
-  before_save :geocode_address
+  before_save :start_geocode_job, unless: :geocoded?
 
-  private
-
-  def clean_original
-    self.original.gsub!(/\s+/, ' ')
-  end
-
-  def geocode_address
+  def geocode!
     return if geocoded?
     geo_results = Geocoder.search(original)
 
@@ -31,4 +25,15 @@ class Address < ActiveRecord::Base
       self.data         = geo.data.to_json
     end
   end
+
+  private
+
+  def start_geocode_job
+    GeocodeAddressJob.perform_async(id)
+  end
+
+  def clean_original
+    self.original.gsub!(/\s+/, ' ')
+  end
+
 end

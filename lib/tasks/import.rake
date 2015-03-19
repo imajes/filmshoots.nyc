@@ -64,14 +64,13 @@ namespace :import do
   namespace :geocode do
     desc 'geocode addresses...'
     task locations: :environment do
-      Location.joins([:address, :permit]).where("addresses.geocoded = false").find_in_batches(batch_size: 100).each do |batch|
-        batch.each do |loc|
-          puts "Parsing #{loc.permit.id}|#{loc.id} - #{loc.permit.project.try(:title)}: #{loc.permit.event_name}...[#{loc.address.original}]\n\t"
-          loc.address.send(:geocode_address)
-          ap loc.address.changes
-          puts loc.address.save!
-          sleep(rand(1..6))
+      idx = 0
+      Address.not_geocoded.find_in_batches(batch_size: 3000).each do |batch|
+        batch.each do |addr|
+          offset = (idx * 24).hours + rand(0..60).minutes
+          GeocodeAddressJob.perform_in(offset, addr.id)
         end
+        idx += 1
       end
     end
   end

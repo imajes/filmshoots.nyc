@@ -1,4 +1,5 @@
 Geocoder.configure(
+  always_raise: :all,
   lookup: :google,
   api_key: 'AIzaSyBsVKsp640WcCA0uL9kw1jN6HOb_NIuOEs',
   # lookup: :bing,

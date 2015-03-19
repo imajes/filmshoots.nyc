@@ -8,15 +8,8 @@ RSpec.describe Address, type: :model do
     expect(address).to be_valid
   end
 
-  it 'should call the geocoder service' do
-    expect_any_instance_of(Address).to receive(:geocode_address).and_return(true)
-    @address = FactoryGirl.build(:address, original: '123   N HENRY ST')
-    @address.save
-  end
-
   context 'validations' do
     before do
-      allow_any_instance_of(Address).to receive(:geocode_address).and_return(true)
       @address = FactoryGirl.build(:address, original: '123   N HENRY ST')
       @address.save
     end
@@ -31,6 +24,7 @@ RSpec.describe Address, type: :model do
     before do
       VCR.use_cassette('google_geocode_address') do
         @address = Address.create(original: '370 FORT WASHINGTON AVENUE, Manhattan, NY')
+        @address.geocode!
       end
     end
 

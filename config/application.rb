@@ -20,6 +20,8 @@ module Permits
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :haml
