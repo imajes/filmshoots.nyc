@@ -50,6 +50,10 @@ class Permit < ActiveRecord::Base
     [locations.with_address.roots + intersections.with_address.roots].flatten.map(&:readable).join("\n")
   end
 
+  def readable(attr)
+    send(attr).with_address.roots.flatten.map(&:readable).join("\n")
+  end
+
   def parse_location
     nil if original_location.blank?
     parsed = LocationParser.new.parse(original_location)

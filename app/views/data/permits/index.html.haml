@@ -15,26 +15,28 @@
           %tr
             %th City ID
             %th Type
-            %th Locations
-            %th 'Hood, Borough
+            %th Neighborhood
             %th Shoot Desc.
             %th Started
             %th Ended
             %th Duration
         %tbody
           - @permits.each do |permit|
-            - hoods = permit.locations.with_address.pluck(:neighborhood).uniq.compact.join(", ")
+            - permit.locations.with_address.each do |loc|
+              %span{class: 'map-marker', data: {type: 'marker', id: loc.id, lat: loc.address.latitude, lng: loc.address.longitude, title: loc.title} }
+                = render 'permit_card', {permit: permit, loc: loc}
+
+            - hoods = [permit.locations.with_address.pluck(:neighborhood).uniq, "<strong>#{permit.boro}</strong>"].flatten.compact.join(", ")
             %tr
-              %td.numeric= permit.event_ref
+              %td.numeric
+                %a{href: '#', id: "permit_#{permit.id}"}= permit.event_ref
               %td= permit.event_type
-              %td== #{permit.locations.count} + #{permit.intersections.count}
-              %td== #{hoods}, <strong>#{permit.boro}</strong>
+              %td{title: "#{permit.locations.count} locs + #{permit.intersections.count} ints"}= hoods.html_safe
               %td= permit.event_name
               %td= permit.event_start.in_time_zone("EST").strftime('%b %d, %Y at %H:%m %p')
               %td= permit.event_end.in_time_zone("EST").strftime('%b %d, %Y at %H:%m %p')
               %td= shoot_length(permit.event_start, permit.event_end)
 
-              -#%td= link_to permit.title, data_company_permit_permits_path(company_id: permit.company_id, permit_id: permit.id)
       = paginate @permits
 
 
@@ -43,11 +45,41 @@
       :javascript
 
         function gmapInit() {
+          var mapCanvas = document.getElementById('map-canvas');
+          var mapCenter = new google.maps.LatLng(40.766,-73.930);
+
           var mapOptions = {
-            center: { lat: 40.766, lng: -73.977},
+            center: mapCenter,
             zoom: 13
           };
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+          var shoot_locations = new google.maps.Map(mapCanvas, mapOptions);
+
+          var marker_data = $('.map-marker')
+
+          var clapper = {
+            //path: 'M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z',
+            path: 'M24 4c-7.73 0-14 6.27-14 14 0 10.5 14 26 14 26s14-15.5 14-26c0-7.73-6.27-14-14-14zm0 19c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z',
+            fillColor: '#303f9f',
+            fillOpacity: 1,
+            scale: 1.1,
+            strokeColor: '#c5cae9',
+            strokeWeight: 2
+          };
+
+          $.each(marker_data, function(idx, val) {
+            data = $(val).data();
+
+            var latlng = new google.maps.LatLng(data['lat'], data['lng']);
+            var marker = new google.maps.Marker({position: latlng, icon: clapper, title: data['title']});
+
+            var infowindow = new google.maps.InfoWindow({content: $(val).html()});
+
+            marker.setMap(shoot_locations);
+
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.open(shoot_locations, marker);
+            });
+          });
+
         }
         google.maps.event.addDomListener(window, 'load', gmapInit);

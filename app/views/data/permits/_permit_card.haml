@@ -1,0 +1,15 @@
+%p.panel-title
+  == #{permit.event_type}: #{permit.event_name}
+.panel-body
+  %h5 Title
+  %p= loc.title
+  %h5 Original
+  %p= loc.address.original
+  %h5 Formatted
+  %p= loc.address.formatted
+  %h5 Borough, Zip
+  %p== #{permit.boro}, #{permit.zip}
+  %h5 Original Location
+  %pre= permit.original_location
+  %h5 Parsed Locations
+  %pre= permit.readable(:locations)

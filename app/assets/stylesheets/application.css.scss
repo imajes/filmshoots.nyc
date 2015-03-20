@@ -3,6 +3,7 @@
  */
 
 $body-bg: #efefef;
+$navbar-default-bg: #c5cae9;
 $navbar-default-color: #fff;
 $navbar-default-link-color: #fff;
 $navbar-border-radius: 0px;
@@ -19,8 +20,11 @@ $navbar-default-border: 0px;
 // gmap
 
 #map-canvas {
-  height: 800px;
+  height: 900px;
   margin: 0;
   padding: 0;
 }
 
+.map-marker {
+  display: none;
+}

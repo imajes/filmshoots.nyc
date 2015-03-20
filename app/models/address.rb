@@ -28,6 +28,10 @@ class Address < ActiveRecord::Base
     end
   end
 
+  def coordinates
+    [longitude, latitude] unless longitude.nil?
+  end
+
   private
 
   def start_geocode_job
