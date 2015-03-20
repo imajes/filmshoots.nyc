@@ -65,6 +65,7 @@ namespace :import do
     desc 'geocode addresses...'
     task locations: :environment do
       idx = 0
+      # Sidekiq::ScheduledSet.new.take(1250).map {|x| x.add_to_queue } 
       Address.not_geocoded.find_in_batches(batch_size: 3000).each do |batch|
         batch.each do |addr|
           offset = (idx * 24).hours + rand(0..60).minutes
@@ -81,6 +82,7 @@ namespace :data do
   desc 'reset counters'
   task reset_counters: :environment do
     Permit.counter_culture_fix_counts
+    MapType.counter_culture_fix_counts
     Project.counter_culture_fix_counts
   end
 
@@ -88,5 +90,17 @@ namespace :data do
   task reindex: :environment do
     Project.reindex
     Company.reindex
+  end
+
+  desc 'geotypes'
+  task geotype: :environment do
+    Address.geocoded.where(geocoded_precision: nil).each do |addr|
+      geo = JSON.parse(addr.data)['geometry']
+      next if geo.blank?
+
+      addr.geocoded_precision = geo['location_type']
+      addr.save if addr.changed?
+
+    end
   end
 end
