@@ -23,6 +23,8 @@ class Address < ActiveRecord::Base
       self.zipcode      = geo.postal_code
       self.neighborhood = geo.neighborhood
       self.data         = geo.data.to_json
+
+      self.geocoded_precision = geo.precision
     end
   end
 

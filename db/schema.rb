@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318181424) do
+ActiveRecord::Schema.define(version: 20150320041637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,13 +26,17 @@ ActiveRecord::Schema.define(version: 20150318181424) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "geocoded",     default: false
+    t.boolean  "geocoded",           default: false
+    t.integer  "map_types_count",    default: 0,     null: false
+    t.string   "geocoded_precision"
   end
 
   add_index "addresses", ["formatted"], name: "index_addresses_on_formatted", using: :btree
   add_index "addresses", ["geocoded"], name: "index_addresses_on_geocoded", using: :btree
+  add_index "addresses", ["geocoded_precision"], name: "index_addresses_on_geocoded_precision", using: :btree
   add_index "addresses", ["latitude"], name: "index_addresses_on_latitude", using: :btree
   add_index "addresses", ["longitude"], name: "index_addresses_on_longitude", using: :btree
+  add_index "addresses", ["map_types_count"], name: "index_addresses_on_map_types_count", using: :btree
   add_index "addresses", ["neighborhood"], name: "index_addresses_on_neighborhood", using: :btree
   add_index "addresses", ["original"], name: "index_addresses_on_original", using: :btree
 
@@ -44,6 +48,7 @@ ActiveRecord::Schema.define(version: 20150318181424) do
   end
 
   add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
+  add_index "categories", ["projects_count"], name: "index_categories_on_projects_count", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -55,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150318181424) do
   end
 
   add_index "companies", ["name"], name: "index_companies_on_name", using: :btree
+  add_index "companies", ["projects_count"], name: "index_companies_on_projects_count", using: :btree
 
   create_table "map_types", force: :cascade do |t|
     t.string   "type"
@@ -110,6 +116,7 @@ ActiveRecord::Schema.define(version: 20150318181424) do
   add_index "projects", ["category_id"], name: "index_projects_on_category_id", using: :btree
   add_index "projects", ["city_ref"], name: "index_projects_on_city_ref", using: :btree
   add_index "projects", ["company_id"], name: "index_projects_on_company_id", using: :btree
+  add_index "projects", ["permits_count"], name: "index_projects_on_permits_count", using: :btree
   add_index "projects", ["title"], name: "index_projects_on_title", using: :btree
 
 end
