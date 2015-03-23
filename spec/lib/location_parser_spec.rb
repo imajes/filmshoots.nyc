@@ -214,6 +214,24 @@ RSpec.describe LocationParser, type: :lib do
           it 'should expand out the ast' do
             expect(parser.shoot_locations).to parse(orig)
           end
+
+          # context 'edge cases' do
+          #
+          #   it 'should handle lowercase street names' do
+          #     addr = 'Joralemon Street between BOERUM PL and CLINTON STREET'
+          #     expect(parser.intersection).to parse(addr, trace: true)
+          #   end
+          #
+          #   it 'should handle shorthand compass directions' do
+          #     addr = 'W. 13TH ST. between 8 AVENUE and HORATIO STREET'
+          #     expect(parser.intersection).to parse(addr, trace: true)
+          #   end
+          #
+          #   it 'should handle mixed case compass directions' do
+          #     addr = 'West 72nd between CENTRAL PARK WEST and AMSTERDAM AVE'
+          #     expect(parser.intersection).to parse(addr, trace: true)
+          #   end
+          # end
         end
 
         context 'which are invalid' do

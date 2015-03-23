@@ -14,6 +14,7 @@ class GeocodeAddressJob
       logger.info "Geocoding: #{a.id} - #{a.original}/#{a.formatted} - Used: #{MapType.where(address_id: a.id).count}"
 
       a.save if a.changed?
+      sleep(rand(0..10))
     rescue ActiveRecord::RecordNotFound
       # already geocoded, so skip this step
       logger.warn "Geocoding: Already done - #{address_id}!"
@@ -34,9 +35,9 @@ class GeocodeAddressJob
   end
 
   def reached_limit!
-    Sidekiq.redis do |x| 
+    Sidekiq.redis do |x|
       x.set('geocoder_over_query_limit', 'true')
-      x.expireat('geocoder_over_query_limit', 1.day.from_now.to_i)
+      x.expireat('geocoder_over_query_limit', 6.hours.from_now.to_i)
     end
   end
 end

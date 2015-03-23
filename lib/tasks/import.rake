@@ -84,6 +84,8 @@ namespace :data do
     Permit.counter_culture_fix_counts
     MapType.counter_culture_fix_counts
     Project.counter_culture_fix_counts
+    Intersection.counter_culture_fix_counts
+    Location.counter_culture_fix_counts
   end
 
   desc 'reindex dab'

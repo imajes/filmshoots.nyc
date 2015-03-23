@@ -36,10 +36,10 @@ class ParseAddressService
     when :location
       l = addr[:location]
 
-      @location = create_location(l[:location_title], l[:place])
+      @location = create_location(l[:location_title], "#{l[:location_title]}, #{l[:place]}")
 
     when :address
-      @location = create_location(addr[:address], addr[:address])
+      @location = create_location(nil, addr[:address])
 
     when :intersection
       l = addr[:intersection]

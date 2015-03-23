@@ -24,12 +24,13 @@ class Address < ActiveRecord::Base
       self.neighborhood = geo.neighborhood
       self.data         = geo.data.to_json
 
+      self.geocoded_at = Time.now
       self.geocoded_precision = geo.precision
     end
   end
 
   def coordinates
-    [longitude, latitude] unless longitude.nil?
+    [latitude, longitude] unless longitude.nil?
   end
 
   private

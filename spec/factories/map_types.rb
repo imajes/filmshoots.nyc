@@ -6,10 +6,11 @@ FactoryGirl.define do
 
   factory :map_type do
     title
+    original_address '27 WALL STREET, Manhattan, NY, 10005'
 
-    after(:build) do |mt|
-      mt.address = Address.first || FactoryGirl.build(:address, original: '27 WALL STREET, Manhattan, NY, 10005')
-    end
+    # after(:build) do |mt|
+    #   mt.address = Address.first || FactoryGirl.build(:address, original: '27 WALL STREET, Manhattan, NY, 10005')
+    # end
   end
 
   factory :intersection, class: Intersection, parent: :map_type
