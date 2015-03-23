@@ -2,8 +2,6 @@ class MapType < ActiveRecord::Base
   belongs_to :permit
   belongs_to :address
 
-  counter_culture :address
-
   scope :with_address, -> { joins(:address).includes(:address) }
 
   acts_as_nested_set

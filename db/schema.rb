@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323151017) do
+ActiveRecord::Schema.define(version: 20150323235152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20150323151017) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "geocoded",            default: false
-    t.integer  "map_types_count",     default: 0,     null: false
     t.string   "geocoded_precision"
     t.integer  "intersections_count", default: 0,     null: false
     t.integer  "locations_count",     default: 0,     null: false
@@ -41,7 +40,6 @@ ActiveRecord::Schema.define(version: 20150323151017) do
   add_index "addresses", ["latitude"], name: "index_addresses_on_latitude", using: :btree
   add_index "addresses", ["locations_count"], name: "index_addresses_on_locations_count", using: :btree
   add_index "addresses", ["longitude"], name: "index_addresses_on_longitude", using: :btree
-  add_index "addresses", ["map_types_count"], name: "index_addresses_on_map_types_count", using: :btree
   add_index "addresses", ["neighborhood"], name: "index_addresses_on_neighborhood", using: :btree
   add_index "addresses", ["original"], name: "index_addresses_on_original", using: :btree
 
