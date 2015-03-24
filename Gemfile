@@ -61,9 +61,12 @@ gem 'rack-cors',  require: 'rack/cors'
 gem 'asset_sync'
 gem 'rack-heartbeat'
 
+# LAST ON LIST TO ENABLE INSTRUMENTATION 
+# OF ALL GEMS.
 group :production, :staging do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  gem 'raygun4ruby'
 end
 
 group :development do
