@@ -17,9 +17,9 @@ class ImportPermitService
                boro:              item[:boro],
                original_location: item[:location],
                zip:               item[:zip].gsub(/,$/, ''),
-               event_start:       convert_to_time(item[:event_start_date]),
-               event_end:         convert_to_time(item[:event_end_date]),
-               entered_on:        convert_to_time(item[:entered_on])
+               event_start:       Chronic.parse(item[:event_start_date]),
+               event_end:         Chronic.parse(item[:event_end_date]),
+               entered_on:        Chronic.parse(item[:entered_on])
     }
   end
 
@@ -33,8 +33,4 @@ class ImportPermitService
     ParseAddressService.run!(permit)
   end
 
-
-  def convert_to_time(ts)
-    Time.strptime("#{ts} ET", '%m/%d/%y %H:%M %p %Z')
-  end
 end

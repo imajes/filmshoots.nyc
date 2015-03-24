@@ -23,6 +23,7 @@ gem 'searchkick'
 # PARSING
 gem 'parslet'
 gem 'rltk'
+gem 'chronic'
 gem 'geocoder'
 
 # QUEUE/CACHE

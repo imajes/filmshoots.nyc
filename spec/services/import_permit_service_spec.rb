@@ -28,10 +28,10 @@ RSpec.describe ImportPermitService, type: :service do
     described_class.run!(@data)
   end
 
-  it 'should initialize item data' do
+  fit 'should initialize item data' do
     expect(@service.attrs[:zip]).to eq('10011')
     expect(@service.attrs[:boro]).to eq('Manhattan')
-    expect(@service.attrs[:event_start].in_time_zone('EST')).to eq(Time.parse('2011-11-01 00:00:00 -0500'))
+    expect(@service.attrs[:event_start]).to eq(Time.parse('2011-11-01 00:00:00 -0500'))
   end
 
   context 'process!' do
