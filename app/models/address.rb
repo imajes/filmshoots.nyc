@@ -4,7 +4,7 @@ class Address < ActiveRecord::Base
   scope :geocoded, -> { where(geocoded: true) }
   scope :not_geocoded, -> { where(geocoded: false) }
 
-  validates :original, uniqueness: { message: 'Address already exists!' }
+  validates :original, uniqueness: { case_sensitive: false, message: 'Address already exists!' }
 
   before_validation :clean_original
   before_save :start_geocode_job, unless: :geocoded?

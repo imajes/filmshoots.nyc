@@ -17,6 +17,22 @@ RSpec.describe Address, type: :model do
     it 'should strip extra spaces' do
       expect(@address.original).to eq('123 N HENRY ST')
     end
+
+    context 'uniqueness of original string' do
+      before do
+        FactoryGirl.create(:address, original: '123 HUMBOLT ST')
+      end
+
+      it 'should not allow a duplicate' do
+        dupe = FactoryGirl.build(:address, original: '123 HUMBOLT ST')
+        expect(dupe).not_to be_valid
+      end
+
+      it 'should not allow a dupe with differing case' do
+        dupe = FactoryGirl.build(:address, original: '123 humbolt st')
+        expect(dupe).not_to be_valid
+      end
+    end
   end
 
   context 'saving geocoded data' do
