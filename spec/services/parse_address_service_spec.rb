@@ -69,7 +69,7 @@ RSpec.describe ParseAddressService, type: :service do
       end
 
       it 'should save the location title' do
-        expect(@result.title).to eq('370 FORT WASHINGTON AVENUE, Manhattan, NY')
+        expect(@result.title).to be_nil
       end
 
       it 'should create an address' do
@@ -177,7 +177,7 @@ RSpec.describe ParseAddressService, type: :service do
 
         it 'should present a human readable locations stack' do
           subject
-          para = "> Location: Monsignor McGolrick Park, Brooklyn, NY\n\n> Location: 34-02 Starr Avenue, Brooklyn, NY\n\n> Intersection: REVIEW AVENUE, Brooklyn, NY\n> Street: REVIEW AVENUE, Brooklyn, NY at 35th STREET, Brooklyn, NY\n   >> Street: REVIEW AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: REVIEW AVENUE, Brooklyn, NY\n> Street: REVIEW AVENUE, Brooklyn, NY at 35th STREET, Brooklyn, NY\n   >> Street: REVIEW AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: STARR AVENUE, Brooklyn, NY\n> Street: STARR AVENUE, Brooklyn, NY at VAN DAM STREET, Brooklyn, NY\n   >> Street: STARR AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: NORTH HENRY STREET, Brooklyn, NY\n> Street: NORTH HENRY STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: NORTH HENRY STREET, Brooklyn, NY at NORMAN AVENUE, Brooklyn, NY\n\n> Intersection: RUSSELL STREET, Brooklyn, NY\n> Street: RUSSELL STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: RUSSELL STREET, Brooklyn, NY at DRIGGS AVENUE, Brooklyn, NY\n\n> Intersection: NASSAU AVENUE, Brooklyn, NY\n> Street: NASSAU AVENUE, Brooklyn, NY at HUMBOLDT STREET, Brooklyn, NY\n   >> Street: NASSAU AVENUE, Brooklyn, NY at RUSSELL STREET, Brooklyn, NY\n\n> Intersection: RUSSELL STREET, Brooklyn, NY\n> Street: RUSSELL STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: RUSSELL STREET, Brooklyn, NY at NORMAN AVENUE, Brooklyn, NY\n"
+          para = "> Location: Monsignor McGolrick Park, Brooklyn, NY\n\n> Location: Silvercup Studios East, 34-02 Starr Avenue, Brooklyn, NY\n\n> Intersection: REVIEW AVENUE, Brooklyn, NY\n> Street: REVIEW AVENUE, Brooklyn, NY at 35th STREET, Brooklyn, NY\n   >> Street: REVIEW AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: REVIEW AVENUE, Brooklyn, NY\n> Street: REVIEW AVENUE, Brooklyn, NY at 35th STREET, Brooklyn, NY\n   >> Street: REVIEW AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: STARR AVENUE, Brooklyn, NY\n> Street: STARR AVENUE, Brooklyn, NY at VAN DAM STREET, Brooklyn, NY\n   >> Street: STARR AVENUE, Brooklyn, NY at BORDEN AVENUE, Brooklyn, NY\n\n> Intersection: NORTH HENRY STREET, Brooklyn, NY\n> Street: NORTH HENRY STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: NORTH HENRY STREET, Brooklyn, NY at NORMAN AVENUE, Brooklyn, NY\n\n> Intersection: RUSSELL STREET, Brooklyn, NY\n> Street: RUSSELL STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: RUSSELL STREET, Brooklyn, NY at DRIGGS AVENUE, Brooklyn, NY\n\n> Intersection: NASSAU AVENUE, Brooklyn, NY\n> Street: NASSAU AVENUE, Brooklyn, NY at HUMBOLDT STREET, Brooklyn, NY\n   >> Street: NASSAU AVENUE, Brooklyn, NY at RUSSELL STREET, Brooklyn, NY\n\n> Intersection: RUSSELL STREET, Brooklyn, NY\n> Street: RUSSELL STREET, Brooklyn, NY at NASSAU AVENUE, Brooklyn, NY\n   >> Street: RUSSELL STREET, Brooklyn, NY at NORMAN AVENUE, Brooklyn, NY\n"
 
           expect(@permit.present_locations).to eq(para)
         end
