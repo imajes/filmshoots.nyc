@@ -23,8 +23,9 @@ class GeocodeAddressJob
       self.class.perform_in((12.hours + rand(1..360).minutes), address_id)
       logger.warn "Geocoding: Google denied request for #{a.id} :( #{a.original}...!"
     rescue Geocoder::OverQueryLimitError
-      self.class.perform_in((12.hours + rand(1..360).minutes), address_id)
-      logger.warn "Geocoding: Over Query limit, pausing for 24 hours."
+      delta = 12.hours + rand(1..360).minutes
+      self.class.perform_in(delta, address_id)
+      logger.warn "Geocoding: Over Query limit, pausing until #{delta.from_now}."
       reached_limit!
     end
 
