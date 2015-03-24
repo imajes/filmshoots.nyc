@@ -87,6 +87,7 @@ group :test, :development do
   gem 'awesome_print'
   gem 'rspec-rails'
   gem 'fuubar'
+  gem 'ruby-progressbar', '1.7.1'
   gem 'timecop'
   gem 'factory_girl'
   gem 'factory_girl_rails'
