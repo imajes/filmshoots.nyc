@@ -36,7 +36,7 @@ class ParseAddressService
     when :location
       l = addr[:location]
 
-      address = if l[:place] =~ /^#{l[:location_title]}/
+      address = if place_begins_with(l[:place], l[:location_title])
                   l[:place]
                 else
                   "#{l[:location_title]}, #{l[:place]}"
@@ -75,5 +75,9 @@ class ParseAddressService
     msg = "Parse Failed: #{permit.id} #{permit.project.try(:title)} - #{e.message}"
     parse_log.warn msg
     return []
+  end
+
+  def place_begins_with(place, str)
+    place[0...str.length] == str
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323235152) do
+ActiveRecord::Schema.define(version: 20150324114326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150323235152) do
     t.integer  "intersections_count", default: 0,     null: false
     t.integer  "locations_count",     default: 0,     null: false
     t.datetime "geocoded_at"
+    t.integer  "streets_count",       default: 0
   end
 
   add_index "addresses", ["formatted"], name: "index_addresses_on_formatted", using: :btree
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150323235152) do
   add_index "addresses", ["longitude"], name: "index_addresses_on_longitude", using: :btree
   add_index "addresses", ["neighborhood"], name: "index_addresses_on_neighborhood", using: :btree
   add_index "addresses", ["original"], name: "index_addresses_on_original", using: :btree
+  add_index "addresses", ["streets_count"], name: "index_addresses_on_streets_count", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"

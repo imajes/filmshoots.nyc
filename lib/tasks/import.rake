@@ -52,10 +52,10 @@ namespace :import do
 
   desc 'parse addresses...'
   task address_parse: :environment do
-    Permit.find_in_batches(batch_size: 100).each do |batch|
+    Permit.where("id > 19190").find_in_batches(batch_size: 100).each do |batch|
       batch.each do |o|
         next if o.locations.any?
-        puts "Parsing #{o.id} - #{o.project.title}: #{o.event_name}..."
+        puts "Parsing #{o.id} - #{o.project.try(:title)}: #{o.event_name}..."
         ParseAddressService.new(o).process!
       end
     end
@@ -82,7 +82,7 @@ namespace :data do
   desc 'reset counters'
   task reset_counters: :environment do
     Permit.counter_culture_fix_counts
-    MapType.counter_culture_fix_counts
+    Street.counter_culture_fix_counts
     Project.counter_culture_fix_counts
     Intersection.counter_culture_fix_counts
     Location.counter_culture_fix_counts
