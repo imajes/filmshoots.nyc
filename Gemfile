@@ -77,6 +77,7 @@ group :development do
   gem 'letter_opener'
 end
 
+gem 'awesome_print'
 group :test, :development do
   gem 'rubocop'
   gem 'simplecov', require: false
@@ -88,7 +89,6 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
-  gem 'awesome_print'
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'ruby-progressbar', '1.7.1'
