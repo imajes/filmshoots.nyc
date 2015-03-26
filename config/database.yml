@@ -11,5 +11,6 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: permits_test
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+  database: <%= ENV["DATABASE_URL"] %>
 
