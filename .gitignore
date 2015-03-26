@@ -7,10 +7,14 @@
 # Ignore bundler config.
 /.bundle
 
+# ignore env
+/.env
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 .tags
+.tags.*
 *.swp
 
 # Dashgum
@@ -23,3 +27,5 @@ vendor/Dashgum
 /db/*.pgdump
 .guard_result
 coverage/
+
+
