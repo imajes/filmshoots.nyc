@@ -1,7 +1,11 @@
 require 'parslet'
 require 'parslet/convenience'
-require 'awesome_print'
-require 'byebug'
+# dev reqs
+begin
+  require 'awesome_print'
+  require 'byebug'
+rescue LoadError
+end
 
 class LocationTransform < Parslet::Transform
 

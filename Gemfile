@@ -59,6 +59,7 @@ gem 'rack-cache', require: 'rack/cache'
 gem 'rack-cors',  require: 'rack/cors'
 
 # DEPLOYMENT
+gem 'fog', require: 'fog/aws/storage'
 gem 'asset_sync'
 gem 'rack-heartbeat'
 
@@ -89,6 +90,7 @@ group :test, :development do
   gem 'pry-stack_explorer'
   gem 'pry-coolline'
   gem 'pry-rescue'
+  #gem 'awesome_print'
   gem 'rspec-rails'
   gem 'fuubar'
   gem 'ruby-progressbar', '1.7.1'

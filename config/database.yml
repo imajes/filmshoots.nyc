@@ -8,3 +8,8 @@ test:
   encoding: unicode
   database: permits_test
 
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: permits_test
+
