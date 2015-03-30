@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324114326) do
+ActiveRecord::Schema.define(version: 20150326173837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150324114326) do
   add_index "map_types", ["parent_id"], name: "index_map_types_on_parent_id", using: :btree
   add_index "map_types", ["permit_id"], name: "index_map_types_on_permit_id", using: :btree
   add_index "map_types", ["rgt"], name: "index_map_types_on_rgt", using: :btree
+  add_index "map_types", ["type", "permit_id", "parent_id"], name: "index_map_types_on_type_and_permit_id_and_parent_id", using: :btree
   add_index "map_types", ["type"], name: "index_map_types_on_type", using: :btree
 
   create_table "permits", force: :cascade do |t|

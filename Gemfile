@@ -26,6 +26,10 @@ gem 'rltk'
 gem 'chronic'
 gem 'geocoder'
 
+# GEO
+gem 'rgeo'
+gem 'activerecord-postgis-adapter', '~> 3.0.0.beta2'
+
 # QUEUE/CACHE
 gem 'sidekiq'
 gem 'redis-rails'

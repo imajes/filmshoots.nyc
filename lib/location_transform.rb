@@ -27,7 +27,7 @@ class LocationTransform < Parslet::Transform
   }
 
   # simple streets
-  rule(street: simple(:x)) { { address: permit.clean_street(x) } }
+  rule(street: simple(:x)) { permit.reparse_street?(x) }
 
   # locations
   rule(title: simple(:x), place: simple(:y)) { {location_title: x.to_s.strip, place: permit.clean_street(y)} }

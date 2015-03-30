@@ -144,6 +144,7 @@ RSpec.describe LocationParser, type: :lib do
 
         it 'should handle approved special characters' do
           expect(parser.street_upper).to parse('34-21 REVIEW AVENUE')
+          expect(parser.street_upper).to parse('N. HENRY ST')
         end
       end
     end

@@ -67,6 +67,15 @@ class Permit < ActiveRecord::Base
     "#{street} at #{cross}"
   end
 
+  def reparse_street?(str)
+    if str.match /between/
+      str = str.to_s.upcase.gsub(" BETWEEN ", " between ").gsub(" AND ", ' and ')
+      LocationTransform.new.apply(LocationParser.new.parse(str), permit: self).first
+    else
+      { address: clean_street(str) }
+    end
+  end
+
   def clean_street(str, kind=:any)
     addr_zip  = (zips.size == 1 ? "NY #{zips.first}" : 'NY')
     addr_boro = (boro.nil? ? 'New York' : boro)
