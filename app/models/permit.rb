@@ -68,7 +68,7 @@ class Permit < ActiveRecord::Base
   end
 
   def reparse_street?(str)
-    if str.match /between/
+    if str.match /\sbetween\s/
       str = str.to_s.upcase.gsub(" BETWEEN ", " between ").gsub(" AND ", ' and ')
       LocationTransform.new.apply(LocationParser.new.parse(str), permit: self).first
     else

@@ -7,7 +7,7 @@ class Address < ActiveRecord::Base
   validates :original, uniqueness: { case_sensitive: false, message: 'Address already exists!' }
 
   before_validation :clean_original
-  before_save :start_geocode_job, unless: :geocoded?
+  # before_save :start_geocode_job, unless: :geocoded?
 
   def geocode!
     return if geocoded?

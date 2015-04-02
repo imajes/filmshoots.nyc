@@ -52,11 +52,17 @@ namespace :import do
 
   desc 'parse addresses...'
   task address_parse: :environment do
-    Permit.where("id > 19190").find_in_batches(batch_size: 100).each do |batch|
+    Permit.find_in_batches(batch_size: 250).each do |batch|
       batch.each do |o|
-        next if o.locations.any?
+        next if o.locations.any? || o.intersections.any?
         puts "Parsing #{o.id} - #{o.project.try(:title)}: #{o.event_name}..."
-        ParseAddressService.new(o).process!
+        begin
+          ParseAddressService.new(o).process!
+        rescue SystemStackError
+          Logger.new(Rails.root.join('log/parse.log')).warn("Failed Processing #{o.id} - too many loops")
+          puts "Stack Error with #{o.id} - #{o.original_location}"
+          next
+        end
       end
     end
   end
