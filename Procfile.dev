@@ -1,3 +1,5 @@
 web: bundle exec puma -C config/puma.rb
 worker: bundle exec sidekiq -C config/sidekiq.yml
 search: elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+
+#  vim: set et ts=2 sw=2 tw=79 ft=yaml :

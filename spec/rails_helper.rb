@@ -10,6 +10,7 @@ if ENV['COVERAGE']
     add_filter '/.permits/'
     add_filter '/spec/support/'
     add_filter '/db/*.csv'
+    add_filter 'config/initializers/raygun.rb'
     add_filter 'config/initializers/json_formatting.rb'
     add_filter 'config/initializers/console.rb'
   end

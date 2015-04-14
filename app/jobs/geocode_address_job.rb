@@ -37,8 +37,10 @@ class GeocodeAddressJob
 
   def reached_limit!
     Sidekiq.redis do |x|
-      x.set('geocoder_over_query_limit', 'true')
-      x.expireat('geocoder_over_query_limit', 6.hours.from_now.to_i)
+      if !x.exists('geocoder_over_query_limit')
+        x.set('geocoder_over_query_limit', 'true')
+        x.expireat('geocoder_over_query_limit', 6.hours.from_now.to_i)
+      end
     end
   end
 end
